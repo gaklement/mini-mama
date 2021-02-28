@@ -1,28 +1,33 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import Lists from './Lists'
+import useStyles from 'substyle'
 
-class App extends Component {
-  state = {
-    response: {},
-  }
+function App() {
+  const [helloResponse, setHelloResponse] = useState({ response: '' })
 
-  componentDidMount() {
+  useEffect(() => {
+    console.log('==Ichanged')
+
     axios.get('/api/v1/say-something').then((res) => {
       const response = res.data
-      this.setState({
+      setHelloResponse({
         response,
       })
     })
-  }
+  }, [])
 
-  render() {
-    return (
-      <div className="App">
-        <h1>Hello from the frontend! Gisa</h1>
-        <h1>{this.state.response.body}</h1>
-      </div>
-    )
-  }
+  const styles = useStyles(defaultStyle, {})
+
+  return (
+    <div {...styles}>
+      <h1>Hello from the frontend! Gisa</h1>
+      <Lists />
+      <h1>{helloResponse.response.body}</h1>
+    </div>
+  )
 }
+
+const defaultStyle = {}
 
 export default App
