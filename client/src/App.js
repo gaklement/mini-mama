@@ -21,13 +21,21 @@ function App() {
 
   return (
     <div {...styles}>
-      <h1>Hello from the frontend! Gisa</h1>
+      <div {...styles('header')}>I LIKE FOOD</div>
       <Lists />
       <h1>{helloResponse.response.body}</h1>
     </div>
   )
 }
 
-const defaultStyle = {}
+const defaultStyle = {
+  header: {
+    borderBottom: '1px solid grey',
+    fontSize: 24,
+    margin: 'auto',
+    textAlign: 'center',
+    width: '70%',
+  },
+}
 
 export default App
