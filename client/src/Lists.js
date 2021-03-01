@@ -5,12 +5,16 @@ function Lists() {
   const [fetchedLists, setFetchedLists] = useState()
   useEffect(() => {
     axios.get('/api/v1/lists').then((fetchLists) => {
-      setFetchedLists(fetchLists.data)
+      setFetchedLists(fetchLists.data.lists)
     })
   }, [])
-  console.log('==fetchedLists, ', fetchedLists)
 
-  return <div>Lists</div>
+  return (
+    <div>
+      <p>Lists:</p>
+      {fetchedLists && fetchedLists.map((list) => <div>{list.name}</div>)}
+    </div>
+  )
 }
 
 export default Lists

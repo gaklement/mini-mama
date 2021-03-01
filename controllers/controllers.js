@@ -7,10 +7,12 @@ const saySomething = (req, res, next) => {
 const lists = (req, res, next) => {
   if (req.method === 'GET') {
     res.status(200).json({
-      lists: {
-        id: '1',
-        name: 'list1',
-      },
+      lists: [
+        {
+          id: '1',
+          name: 'list1',
+        },
+      ],
     })
   }
 }
