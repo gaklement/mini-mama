@@ -3,6 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const path = require('path')
+const Datastore = require('nedb')
 
 // Create a new express application named 'app'
 const app = express()
@@ -10,9 +11,14 @@ const app = express()
 // Set our backend port to be either an environment variable or port 5000
 const port = process.env.PORT || 5000
 
+// Load the database
+const database = new Datastore('database.db')
+database.loadDatabase()
+
 // This application level middleware prints incoming request to the servers console, userful to see incoming requests
 app.use((req, res, next) => {
   console.log(`Request_Endoint: ${req.method} ${req.url}`)
+  database.insert({ gisa: req.method })
   next()
 })
 
