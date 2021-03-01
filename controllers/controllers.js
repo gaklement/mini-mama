@@ -4,4 +4,15 @@ const saySomething = (req, res, next) => {
   })
 }
 
+const lists = (req, res, next) => {
+  if (req.method === 'GET') {
+    res.status(200).json({
+      lists: {
+        id: '1',
+        name: 'list1',
+      },
+    })
+  }
+}
 module.exports.saySomething = saySomething
+module.exports.lists = lists

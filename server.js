@@ -18,7 +18,7 @@ database.loadDatabase()
 // This application level middleware prints incoming request to the servers console, userful to see incoming requests
 app.use((req, res, next) => {
   console.log(`Request_Endoint: ${req.method} ${req.url}`)
-  database.insert({ gisa: req.method })
+  //   database.insert({ gisa: req.method })
   next()
 })
 
