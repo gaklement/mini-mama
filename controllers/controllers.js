@@ -1,3 +1,8 @@
+const Datastore = require('nedb')
+
+const database = new Datastore('database.db')
+database.loadDatabase()
+
 const saySomething = (req, res, next) => {
   res.status(200).json({
     body: 'Hello from the server',
@@ -6,15 +11,22 @@ const saySomething = (req, res, next) => {
 
 const lists = (req, res, next) => {
   if (req.method === 'GET') {
-    res.status(200).json({
-      lists: [
-        {
-          id: '1',
-          name: 'list1',
-        },
-      ],
+    database.find({}, (error, lists) => {
+      res.status(200).json({
+        lists,
+      })
+    })
+  }
+
+  if (req.method === 'POST') {
+    res.status(200).json({})
+
+    database.insert({
+      id: Math.floor(100000 + Math.random() * 900000),
+      name: req.body.name,
     })
   }
 }
+
 module.exports.saySomething = saySomething
 module.exports.lists = lists
