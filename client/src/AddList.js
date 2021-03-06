@@ -9,12 +9,7 @@ function AddList({ onCreateList }) {
         onChange={(event) => setName(event.target.value)}
         onKeyDown={({ key }) => key === 'Enter' && onCreateList(name)}
       />
-      <button
-        disabled={!name}
-        onClick={() => {
-          onCreateList(name)
-        }}
-      >
+      <button disabled={!name} onClick={() => onCreateList(name)}>
         Add new list
       </button>
     </div>

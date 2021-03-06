@@ -3,12 +3,6 @@ const Datastore = require('nedb')
 const database = new Datastore('./database.db')
 database.loadDatabase()
 
-const saySomething = (req, res, next) => {
-  res.status(200).json({
-    body: 'Hello from the server',
-  })
-}
-
 const lists = (req, res, next) => {
   if (req.method === 'GET') {
     database.find({}, (error, lists) => {

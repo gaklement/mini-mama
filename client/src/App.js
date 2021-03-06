@@ -1,15 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React from 'react'
 import Lists from './Lists'
 import useStyles from 'substyle'
 
 function App() {
-  // useEffect(() => {
-  //   axios.get('/api/v1/say-something').then((res) => {
-  //     // handle response
-  //   })
-  // }, [])
-
   const styles = useStyles(defaultStyle, {})
 
   return (
