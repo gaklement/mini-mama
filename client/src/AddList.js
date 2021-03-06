@@ -4,7 +4,11 @@ function AddList({ onCreateList }) {
   const [name, setName] = useState()
   return (
     <div>
-      <input type="text" onChange={(event) => setName(event.target.value)} />
+      <input
+        type="text"
+        onChange={(event) => setName(event.target.value)}
+        onKeyDown={({ key }) => key === 'Enter' && onCreateList(name)}
+      />
       <button
         disabled={!name}
         onClick={() => {

@@ -3,7 +3,7 @@ import axios from 'axios'
 import AddList from './AddList'
 
 function Lists() {
-  const [fetchedLists, setFetchedLists] = useState()
+  const [fetchedLists, setFetchedLists] = useState([])
 
   useEffect(() => {
     fetchLists()
@@ -23,8 +23,9 @@ function Lists() {
     <div>
       <AddList onCreateList={(name) => handleCreateList(name)} />
       <p>Lists:</p>
-      {fetchedLists &&
-        fetchedLists.map((list) => <div key={list.id}>{list.name}</div>)}
+      {fetchedLists.map((list) => (
+        <div key={list.id}>{list.name}</div>
+      ))}
     </div>
   )
 }
