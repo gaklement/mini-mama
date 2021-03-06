@@ -5,9 +5,14 @@ database.loadDatabase()
 
 const lists = (req, res, next) => {
   if (req.method === 'GET') {
-    database.find({}, (error, lists) => {
+    database.find({}, (_, lists) => {
+      const sortedLists = lists.sort(
+        (listA, listB) =>
+          new Date(listA.createTime) - new Date(listB.createTime)
+      )
+
       res.status(200).json({
-        lists,
+        lists: sortedLists,
       })
     })
   }
@@ -18,9 +23,9 @@ const lists = (req, res, next) => {
     database.insert({
       id: Math.floor(100000 + Math.random() * 900000),
       name: req.body.name,
+      createTime: Date.now(),
     })
   }
 }
 
-module.exports.saySomething = saySomething
 module.exports.lists = lists
