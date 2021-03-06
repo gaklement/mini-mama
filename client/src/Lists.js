@@ -24,7 +24,12 @@ function Lists() {
       <AddList onCreateList={(name) => handleCreateList(name)} />
       <p>Lists:</p>
       {fetchedLists.map((list) => (
-        <div key={list.id}>{list.name}</div>
+        <div
+          key={list.id}
+          onClick={() => console.log('==list.name', list.name)}
+        >
+          {list.name}
+        </div>
       ))}
     </div>
   )
