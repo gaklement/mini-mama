@@ -19,10 +19,7 @@ const lists = (req, res, next) => {
   }
 
   if (req.method === 'POST') {
-    console.log('==hello')
-
     res.status(200).json({})
-    console.log('==ja?', req.body.name)
 
     database.insert({
       id: Math.floor(100000 + Math.random() * 900000),

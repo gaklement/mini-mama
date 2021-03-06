@@ -6,15 +6,17 @@ function Lists() {
   const [fetchedLists, setFetchedLists] = useState()
 
   useEffect(() => {
-    axios.get('/api/v1/lists').then((fetchLists) => {
-      setFetchedLists(fetchLists.data.lists)
-    })
+    fetchLists()
   }, [])
 
-  function handleCreateList(name) {
-    axios.post('/api/v1/lists', { name }).then(() => {
-      console.log('==a new list was added')
+  function fetchLists() {
+    axios.get('/api/v1/lists').then(({ data }) => {
+      setFetchedLists(data.lists)
     })
+  }
+
+  function handleCreateList(name) {
+    axios.post('/api/v1/lists', { name }).then(() => fetchLists())
   }
 
   return (
