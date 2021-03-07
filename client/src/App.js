@@ -1,16 +1,21 @@
 import React from 'react'
 import Lists from './Lists'
 import useStyles from 'substyle'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import ListDetail from './ListDetail'
 
 function App() {
   const styles = useStyles(defaultStyle, {})
 
   return (
     <div {...styles}>
+      <div {...styles('header')}>I LIKE FOOD</div>
       <BrowserRouter>
-        <div {...styles('header')}>I LIKE FOOD</div>
-        <Route path="/" exact component={Lists} />
+        <Switch>
+          <Route path="/" exact component={Lists} />
+          <Route path="/listDetail/:listId" exact component={ListDetail} />
+          <Route path="/" render={() => <div>404</div>} />
+        </Switch>
       </BrowserRouter>
     </div>
   )

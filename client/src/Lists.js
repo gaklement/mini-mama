@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import AddList from './AddList'
 
-function Lists() {
+function Lists({ history }) {
   const [fetchedLists, setFetchedLists] = useState([])
 
   useEffect(() => {
@@ -26,7 +26,9 @@ function Lists() {
       {fetchedLists.map((list) => (
         <div
           key={list.id}
-          onClick={() => console.log('==list.name', list.name)}
+          onClick={() => {
+            history.push(`/listDetail/${list.id}`)
+          }}
         >
           {list.name}
         </div>
