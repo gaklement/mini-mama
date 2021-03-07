@@ -1,14 +1,17 @@
 import React from 'react'
 import Lists from './Lists'
 import useStyles from 'substyle'
+import { BrowserRouter, Route } from 'react-router-dom'
 
 function App() {
   const styles = useStyles(defaultStyle, {})
 
   return (
     <div {...styles}>
-      <div {...styles('header')}>I LIKE FOOD</div>
-      <Lists />
+      <BrowserRouter>
+        <div {...styles('header')}>I LIKE FOOD</div>
+        <Route path="/" exact component={Lists} />
+      </BrowserRouter>
     </div>
   )
 }
