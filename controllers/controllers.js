@@ -35,8 +35,19 @@ const lists = (req, res, next) => {
       {}
     )
 
-    res.status(200).json({ listItems: doc.items })
+    res.status(200).json({})
+  }
+}
+
+const listItems = (req, res, next) => {
+  if (req.method === 'GET') {
+    database.findOne({ id: req.query.listId }, (_, doc) =>
+      res.status(200).json({
+        listItems: doc.items,
+      })
+    )
   }
 }
 
 module.exports.lists = lists
+module.exports.listItems = listItems

@@ -4,10 +4,21 @@ import axios from 'axios'
 function ListDetail({ history, match }) {
   const [currentListItem, setCurrentListItem] = useState('')
 
+  function fetchListItems() {
+    axios
+      .get(`/api/v1/listItems?listId=${match.params.listId}`)
+      .then(({ data }) => {
+        console.log('==listItems', data.listItems)
+      })
+  }
+
   function onAddListItem() {
     axios
-      .put('/api/v1/lists', { id: match.params.listId, item: currentListItem })
-      .then(() => {})
+      .put('/api/v1/lists', {
+        id: match.params.listId,
+        item: currentListItem,
+      })
+      .then(() => fetchListItems())
 
     setCurrentListItem('')
   }
@@ -23,6 +34,7 @@ function ListDetail({ history, match }) {
         onKeyDown={({ key }) => key === 'Enter' && onAddListItem()}
       />
       <button onClick={() => onAddListItem()}>Add item to list</button>
+      <button onClick={() => fetchListItems()}>fetch</button>
     </div>
   )
 }
