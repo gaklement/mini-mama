@@ -1,7 +1,16 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 
 function ListDetail({ history, match }) {
-  const [listItem, setListItem] = useState('')
+  const [currentListItem, setCurrentListItem] = useState('')
+
+  function onAddListItem() {
+    axios
+      .put('/api/v1/lists', { id: match.params.listId, item: currentListItem })
+      .then(() => {})
+
+    setCurrentListItem('')
+  }
 
   return (
     <div>
@@ -9,23 +18,11 @@ function ListDetail({ history, match }) {
       <div>ListDetail for {match.params.listId}</div>
       <input
         type="text"
-        value={listItem}
-        onChange={(event) => setListItem(event.target.value)}
-        onKeyDown={({ key }) => {
-          if (key === 'Enter') {
-            console.log('nein', listItem)
-            setListItem('')
-          }
-        }}
+        value={currentListItem}
+        onChange={(event) => setCurrentListItem(event.target.value)}
+        onKeyDown={({ key }) => key === 'Enter' && onAddListItem()}
       />
-      <button
-        onClick={() => {
-          console.log('ja', listItem)
-          setListItem('')
-        }}
-      >
-        Add item to list
-      </button>
+      <button onClick={() => onAddListItem()}>Add item to list</button>
     </div>
   )
 }

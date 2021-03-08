@@ -18,13 +18,24 @@ const lists = (req, res, next) => {
   }
 
   if (req.method === 'POST') {
-    res.status(200).json({})
-
     database.insert({
-      id: Math.floor(100000 + Math.random() * 900000),
-      name: req.body.name,
+      id: Math.floor(100000 + Math.random() * 900000).toString(),
       createTime: Date.now(),
+      name: req.body.name,
+      items: [],
     })
+
+    res.status(200).json({})
+  }
+
+  if (req.method === 'PUT') {
+    database.update(
+      { id: req.body.id },
+      { $push: { items: req.body.item } },
+      {}
+    )
+
+    res.status(200).json({ listItems: doc.items })
   }
 }
 

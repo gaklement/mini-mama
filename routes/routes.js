@@ -4,5 +4,6 @@ const controllers = require('./../controllers/controllers')
 
 router.get('/lists', controllers.lists)
 router.post('/lists', controllers.lists)
+router.put('/lists', controllers.lists)
 
 module.exports = router
