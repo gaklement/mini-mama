@@ -34,7 +34,9 @@ function ListDetail({ history, match }) {
         onChange={(event) => setCurrentListItem(event.target.value)}
         onKeyDown={({ key }) => key === 'Enter' && onAddListItem()}
       />
-      <button onClick={() => onAddListItem()}>Add item to list</button>
+      <button disabled={!currentListItem} onClick={() => onAddListItem()}>
+        Add item to list
+      </button>
 
       {fetchedListItems.map((listItem) => (
         <div key={listItem}>{listItem}</div>
@@ -44,3 +46,6 @@ function ListDetail({ history, match }) {
 }
 
 export default ListDetail
+
+// use useCallback for handlers
+// each item should have an id
