@@ -3,13 +3,12 @@ import axios from 'axios'
 
 function ListDetail({ history, match }) {
   const [currentListItem, setCurrentListItem] = useState('')
+  const [fetchedListItems, setFetchedListItems] = useState([])
 
   function fetchListItems() {
     axios
       .get(`/api/v1/listItems?listId=${match.params.listId}`)
-      .then(({ data }) => {
-        console.log('==listItems', data.listItems)
-      })
+      .then(({ data }) => setFetchedListItems(data.listItems))
   }
 
   function onAddListItem() {
@@ -34,7 +33,10 @@ function ListDetail({ history, match }) {
         onKeyDown={({ key }) => key === 'Enter' && onAddListItem()}
       />
       <button onClick={() => onAddListItem()}>Add item to list</button>
-      <button onClick={() => fetchListItems()}>fetch</button>
+
+      {fetchedListItems.map((listItem) => (
+        <div key={listItem}>{listItem}</div>
+      ))}
     </div>
   )
 }
