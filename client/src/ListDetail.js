@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 
 function ListDetail({ history, match }) {
   const [currentListItem, setCurrentListItem] = useState('')
   const [fetchedListItems, setFetchedListItems] = useState([])
 
-  useEffect(() => fetchListItems(), [])
+  const fetchListItems = useCallback(
+    () =>
+      axios
+        .get(`/api/v1/listItems?listId=${match.params.listId}`)
+        .then(({ data }) => setFetchedListItems(data.listItems)),
+    [match.params.listId]
+  )
 
-  function fetchListItems() {
-    axios
-      .get(`/api/v1/listItems?listId=${match.params.listId}`)
-      .then(({ data }) => setFetchedListItems(data.listItems))
-  }
-
-  function onAddListItem() {
+  const onAddListItem = useCallback(() => {
     axios
       .put('/api/v1/lists', {
         id: match.params.listId,
@@ -22,7 +22,9 @@ function ListDetail({ history, match }) {
       .then(() => fetchListItems())
 
     setCurrentListItem('')
-  }
+  }, [currentListItem, fetchListItems, match.params.listId])
+
+  useEffect(() => fetchListItems(), [fetchListItems])
 
   return (
     <div>
@@ -46,5 +48,3 @@ function ListDetail({ history, match }) {
 }
 
 export default ListDetail
-
-// use useCallback for handlers
