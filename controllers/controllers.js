@@ -31,7 +31,14 @@ const lists = (req, res, next) => {
   if (req.method === 'PUT') {
     database.update(
       { id: req.body.id },
-      { $push: { items: req.body.item } },
+      {
+        $push: {
+          items: {
+            id: Math.floor(100000 + Math.random() * 900000).toString(),
+            name: req.body.item,
+          },
+        },
+      },
       {}
     )
 

@@ -39,7 +39,7 @@ function ListDetail({ history, match }) {
       </button>
 
       {fetchedListItems.map((listItem) => (
-        <div key={listItem}>{listItem}</div>
+        <div key={listItem.id}>{listItem.name}</div>
       ))}
     </div>
   )
@@ -48,4 +48,3 @@ function ListDetail({ history, match }) {
 export default ListDetail
 
 // use useCallback for handlers
-// each item should have an id
