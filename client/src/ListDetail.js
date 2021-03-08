@@ -29,7 +29,7 @@ function ListDetail({ history, match }) {
   return (
     <div>
       <button onClick={() => history.push('/')}>Zurück</button>
-      <div>ListDetail for {match.params.listId}</div>
+      <div>List Detail for {match.params.listId}</div>
       <input
         type="text"
         value={currentListItem}
@@ -48,3 +48,6 @@ function ListDetail({ history, match }) {
 }
 
 export default ListDetail
+
+// show list name in header
+// add item actions rename, remove, tick off, maybe just remove on click
