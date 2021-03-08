@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 function ListDetail({ history, match }) {
   const [currentListItem, setCurrentListItem] = useState('')
   const [fetchedListItems, setFetchedListItems] = useState([])
+
+  useEffect(() => fetchListItems(), [])
 
   function fetchListItems() {
     axios
