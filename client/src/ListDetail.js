@@ -3,22 +3,15 @@ import axios from 'axios'
 
 function ListDetail({ history, match }) {
   const [currentListItem, setCurrentListItem] = useState('')
-  const [fetchedListItems, setFetchedListItems] = useState([])
-  const [currentListName, setCurrentListName] = useState('')
+  const [currentList, setCurrentList] = useState({})
 
-  useEffect(() => {
+  const fetchList = useCallback(() => {
     axios
       .get(`/api/v1/list?listId=${match.params.listId}`)
-      .then(({ data }) => setCurrentListName(data.name))
-  }, [])
+      .then(({ data: list }) => setCurrentList(list))
+  }, [match.params.listId])
 
-  const fetchListItems = useCallback(
-    () =>
-      axios
-        .get(`/api/v1/listItems?listId=${match.params.listId}`)
-        .then(({ data }) => setFetchedListItems(data.listItems)),
-    [match.params.listId]
-  )
+  useEffect(() => fetchList(), [fetchList])
 
   const onAddListItem = useCallback(() => {
     axios
@@ -26,17 +19,15 @@ function ListDetail({ history, match }) {
         id: match.params.listId,
         item: currentListItem,
       })
-      .then(() => fetchListItems())
+      .then(() => fetchList())
 
     setCurrentListItem('')
-  }, [currentListItem, fetchListItems, match.params.listId])
-
-  useEffect(() => fetchListItems(), [fetchListItems])
+  }, [currentListItem, fetchList, match.params.listId])
 
   return (
     <div>
       <button onClick={() => history.push('/')}>Zurück</button>
-      <div>{`List Detail for "${currentListName}"`}</div>
+      <div>{`List Detail for "${currentList.name}"`}</div>
       <input
         type="text"
         value={currentListItem}
@@ -47,14 +38,14 @@ function ListDetail({ history, match }) {
         Add item to list
       </button>
 
-      {fetchedListItems.map((listItem) => (
-        <div key={listItem.id}>{listItem.name}</div>
-      ))}
+      {currentList.items &&
+        currentList.items.map((listItem) => (
+          <div key={listItem.id}>{listItem.name}</div>
+        ))}
     </div>
   )
 }
 
 export default ListDetail
 
-// rewrite listItems to use /list
 // add item actions rename, remove, tick off, maybe just remove on click
