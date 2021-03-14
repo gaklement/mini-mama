@@ -4,6 +4,7 @@ const database = new Datastore('./database.db')
 database.loadDatabase()
 
 const list = (req, res, next) => {
+  // get a list
   if (req.method === 'GET') {
     database.find({ id: req.query.listId }, (_, list) => {
       res.status(200).json({
@@ -14,6 +15,7 @@ const list = (req, res, next) => {
 }
 
 const lists = (req, res, next) => {
+  // get all lists
   if (req.method === 'GET') {
     database.find({}, (_, lists) => {
       const sortedLists = lists.sort(
@@ -27,6 +29,7 @@ const lists = (req, res, next) => {
     })
   }
 
+  // add new list
   if (req.method === 'POST') {
     database.insert({
       id: Math.floor(100000 + Math.random() * 900000).toString(),
@@ -38,6 +41,7 @@ const lists = (req, res, next) => {
     res.status(200).json({})
   }
 
+  // add item to list
   if (req.method === 'PUT') {
     database.update(
       { id: req.body.id },
@@ -56,5 +60,30 @@ const lists = (req, res, next) => {
   }
 }
 
+const item = (req, res, next) => {
+  // mark an item as done
+  if (req.method === 'PUT') {
+    database.find({ id: req.body.listId }, (_, list) => {
+      // find item in the list's items
+      // update it and overwrite all items
+      const updatedItems = list[0].items.map((item) =>
+        item.id === req.body.itemId
+          ? { ...item, doneTime: Date.now(), done: true }
+          : item
+      )
+
+      database.update(
+        { id: req.body.listId },
+        {
+          $set: { items: updatedItems },
+        }
+      )
+    })
+
+    res.status(200).json({})
+  }
+}
+
 module.exports.lists = lists
 module.exports.list = list
+module.exports.item = item

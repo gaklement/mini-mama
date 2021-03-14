@@ -1,0 +1,7 @@
+// add item actions rename, remove, tick off, maybe just remove on click
+// move removed item to bottom list
+// bottom list shows removed item and timestamp
+// add (removed-)liste leeren button
+// make items moveable on main list
+
+// fetchList auslagern und wiederverwenden

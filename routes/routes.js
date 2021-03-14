@@ -8,4 +8,6 @@ router.get('/lists', controllers.lists)
 router.post('/lists', controllers.lists)
 router.put('/lists', controllers.lists)
 
+router.put('/item', controllers.item)
+
 module.exports = router

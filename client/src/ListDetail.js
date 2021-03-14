@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
+import ListItem from './ListItem'
 
 function ListDetail({ history, match }) {
   const [currentListItem, setCurrentListItem] = useState('')
@@ -40,12 +41,15 @@ function ListDetail({ history, match }) {
 
       {currentList.items &&
         currentList.items.map((listItem) => (
-          <div key={listItem.id}>{listItem.name}</div>
+          <ListItem
+            key={listItem.id}
+            listId={currentList.id}
+            listItem={listItem}
+            updateList={(listId) => fetchList()}
+          />
         ))}
     </div>
   )
 }
 
 export default ListDetail
-
-// add item actions rename, remove, tick off, maybe just remove on click
