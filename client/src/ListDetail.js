@@ -4,6 +4,13 @@ import axios from 'axios'
 function ListDetail({ history, match }) {
   const [currentListItem, setCurrentListItem] = useState('')
   const [fetchedListItems, setFetchedListItems] = useState([])
+  const [currentListName, setCurrentListName] = useState('')
+
+  useEffect(() => {
+    axios
+      .get(`/api/v1/list?listId=${match.params.listId}`)
+      .then(({ data }) => setCurrentListName(data.name))
+  }, [])
 
   const fetchListItems = useCallback(
     () =>
@@ -29,7 +36,7 @@ function ListDetail({ history, match }) {
   return (
     <div>
       <button onClick={() => history.push('/')}>Zurück</button>
-      <div>List Detail for {match.params.listId}</div>
+      <div>{`List Detail for "${currentListName}"`}</div>
       <input
         type="text"
         value={currentListItem}
@@ -49,5 +56,5 @@ function ListDetail({ history, match }) {
 
 export default ListDetail
 
-// show list name in header
+// rewrite listItems to use /list
 // add item actions rename, remove, tick off, maybe just remove on click

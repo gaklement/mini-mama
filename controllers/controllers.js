@@ -3,6 +3,16 @@ const Datastore = require('nedb')
 const database = new Datastore('./database.db')
 database.loadDatabase()
 
+const list = (req, res, next) => {
+  if (req.method === 'GET') {
+    database.find({ id: req.query.listId }, (_, list) => {
+      res.status(200).json({
+        ...list[0],
+      })
+    })
+  }
+}
+
 const lists = (req, res, next) => {
   if (req.method === 'GET') {
     database.find({}, (_, lists) => {
@@ -57,4 +67,5 @@ const listItems = (req, res, next) => {
 }
 
 module.exports.lists = lists
+module.exports.list = list
 module.exports.listItems = listItems
