@@ -40,6 +40,8 @@ function ListDetail({ history, match }) {
   )
 
   const updateListName = useCallback(() => {
+    setUpdatingListName(false)
+
     axios
       .put('/api/v1/list', {
         listId: match.params.listId,
@@ -67,21 +69,11 @@ function ListDetail({ history, match }) {
               onChange={(event) => {
                 setNewListName(event.target.value)
               }}
-              onKeyDown={({ key }) => {
-                if (key === 'Enter') {
-                  setUpdatingListName(false)
-                  updateListName(newListName)
-                }
-              }}
+              onKeyDown={({ key }) =>
+                key === 'Enter' && updateListName(newListName)
+              }
             />
-            <button
-              onClick={() => {
-                setUpdatingListName(false)
-                updateListName(newListName)
-              }}
-            >
-              Confirm
-            </button>
+            <button onClick={updateListName}>Confirm</button>
           </div>
         ) : (
           <div>

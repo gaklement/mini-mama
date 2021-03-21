@@ -15,8 +15,6 @@ const list = (req, res, next) => {
 
   // update list name
   if (req.method === 'PUT') {
-    console.log('==', req.body)
-
     database.update(
       { id: req.body.listId },
       {
