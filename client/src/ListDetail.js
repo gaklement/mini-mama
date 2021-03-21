@@ -5,6 +5,8 @@ import ListItem from './ListItem'
 function ListDetail({ history, match }) {
   const [currentListItem, setCurrentListItem] = useState('')
   const [currentList, setCurrentList] = useState({})
+  const [updatingListName, setUpdatingListName] = useState(false)
+  const [newListName, setNewListName] = useState('')
 
   const fetchList = useCallback(() => {
     axios
@@ -37,6 +39,15 @@ function ListDetail({ history, match }) {
     [fetchList, match.params.listId]
   )
 
+  const updateListName = useCallback(() => {
+    axios
+      .put('/api/v1/list', {
+        listId: match.params.listId,
+        newName: newListName,
+      })
+      .then(() => fetchList(match.params.listId))
+  }, [match.params.listId, fetchList, newListName])
+
   const openItems = currentList.items
     ? currentList.items.filter((item) => !item.done)
     : []
@@ -48,7 +59,43 @@ function ListDetail({ history, match }) {
   return (
     <div>
       <button onClick={() => history.push('/')}>Zurück</button>
-      <div>{`List Detail for "${currentList.name}"`}</div>
+      <div>
+        {updatingListName ? (
+          <div>
+            <input
+              type="text"
+              onChange={(event) => {
+                setNewListName(event.target.value)
+              }}
+              onKeyDown={({ key }) => {
+                if (key === 'Enter') {
+                  setUpdatingListName(false)
+                  updateListName(newListName)
+                }
+              }}
+            />
+            <button
+              onClick={() => {
+                setUpdatingListName(false)
+                updateListName(newListName)
+              }}
+            >
+              Confirm
+            </button>
+          </div>
+        ) : (
+          <div>
+            {`List Detail for "${currentList.name}"`}
+            <button
+              onClick={() => {
+                setUpdatingListName(true)
+              }}
+            >
+              Change name
+            </button>
+          </div>
+        )}
+      </div>
       <input
         type="text"
         value={currentListItem}

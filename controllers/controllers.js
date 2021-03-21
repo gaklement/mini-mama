@@ -12,6 +12,22 @@ const list = (req, res, next) => {
       })
     })
   }
+
+  // update list name
+  if (req.method === 'PUT') {
+    console.log('==', req.body)
+
+    database.update(
+      { id: req.body.listId },
+      {
+        $set: {
+          name: req.body.newName,
+        },
+      }
+    )
+
+    res.status(200).json({})
+  }
 }
 
 const lists = (req, res, next) => {
