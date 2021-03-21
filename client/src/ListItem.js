@@ -1,23 +1,11 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import useStyles from 'substyle'
-import axios from 'axios'
 
-function ListItem({ listId, listItem, updateList }) {
+function ListItem({ listItem, onClick }) {
   const styles = useStyles(defaultStyle, {})
 
-  const markItemAsDone = useCallback(() => {
-    axios
-      .put('/api/v1/item', { itemId: listItem.id, listId })
-      .then(() => updateList(listId))
-  }, [listId, listItem.id, updateList])
-
   return (
-    <div
-      {...styles}
-      onClick={() => {
-        markItemAsDone()
-      }}
-    >
+    <div {...styles} onClick={() => onClick(listItem)}>
       {listItem.name}
       {listItem.done && <span {...styles('done')}>Done</span>}
     </div>

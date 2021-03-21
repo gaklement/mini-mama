@@ -61,14 +61,18 @@ const lists = (req, res, next) => {
 }
 
 const item = (req, res, next) => {
-  // mark an item as done
+  // toggle item from done/undone
   if (req.method === 'PUT') {
     database.find({ id: req.body.listId }, (_, list) => {
       // find item in the list's items
       // update it and overwrite all items
       const updatedItems = list[0].items.map((item) =>
         item.id === req.body.itemId
-          ? { ...item, doneTime: Date.now(), done: true }
+          ? {
+              ...item,
+              doneTime: item.done ? null : Date.now(),
+              done: !item.done,
+            }
           : item
       )
 

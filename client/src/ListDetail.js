@@ -25,6 +25,26 @@ function ListDetail({ history, match }) {
     setCurrentListItem('')
   }, [currentListItem, fetchList, match.params.listId])
 
+  const toggleItem = useCallback(
+    (listItem) => {
+      axios
+        .put('/api/v1/item', {
+          itemId: listItem.id,
+          listId: match.params.listId,
+        })
+        .then(() => fetchList(match.params.listId))
+    },
+    [fetchList, match.params.listId]
+  )
+
+  const openItems = currentList.items
+    ? currentList.items.filter((item) => !item.done)
+    : []
+
+  const closedItems = currentList.items
+    ? currentList.items.filter((item) => item.done)
+    : []
+
   return (
     <div>
       <button onClick={() => history.push('/')}>Zurück</button>
@@ -39,15 +59,28 @@ function ListDetail({ history, match }) {
         Add item to list
       </button>
 
-      {currentList.items &&
-        currentList.items.map((listItem) => (
-          <ListItem
-            key={listItem.id}
-            listId={currentList.id}
-            listItem={listItem}
-            updateList={(listId) => fetchList()}
-          />
-        ))}
+      {openItems.map((item) => (
+        <ListItem
+          key={item.id}
+          listId={currentList.id}
+          listItem={item}
+          onClick={toggleItem}
+        />
+      ))}
+
+      {closedItems && (
+        <div>
+          <p>Closed</p>
+          {closedItems.map((item) => (
+            <ListItem
+              key={item.id}
+              listId={currentList.id}
+              listItem={item}
+              onClick={toggleItem}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
