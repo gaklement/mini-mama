@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
+import { Button, TextField } from '@material-ui/core'
 
 function AddList({ onCreateList }) {
   const [name, setName] = useState('')
   return (
     <div>
-      <input
-        type="text"
+      <TextField
+        id="standard-basic"
+        label="Name der Liste"
         onChange={(event) => setName(event.target.value)}
         onKeyDown={({ key }) => {
           if (key === 'Enter') {
@@ -15,15 +17,17 @@ function AddList({ onCreateList }) {
         }}
         value={name}
       />
-      <button
+      <Button
+        color="primary"
+        variant="contained"
         disabled={!name}
         onClick={() => {
           onCreateList(name)
           setName('')
         }}
       >
-        Add new list
-      </button>
+        Erstellen
+      </Button>
     </div>
   )
 }
