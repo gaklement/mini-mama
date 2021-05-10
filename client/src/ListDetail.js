@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 import ListItem from './ListItem'
+import { Button } from '@material-ui/core'
 
 function ListDetail({ history, match }) {
   const [currentListItem, setCurrentListItem] = useState('')
@@ -60,7 +61,13 @@ function ListDetail({ history, match }) {
 
   return (
     <div>
-      <button onClick={() => history.push('/')}>Zurück</button>
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={() => history.push('/')}
+      >
+        Zurück
+      </Button>
       <div>
         {updatingListName ? (
           <div>
@@ -78,13 +85,16 @@ function ListDetail({ history, match }) {
         ) : (
           <div>
             {`List Detail for "${currentList.name}"`}
-            <button
+
+            <Button
+              color="primary"
               onClick={() => {
                 setUpdatingListName(true)
               }}
+              variant="contained"
             >
               Change name
-            </button>
+            </Button>
           </div>
         )}
       </div>
@@ -94,9 +104,15 @@ function ListDetail({ history, match }) {
         onChange={(event) => setCurrentListItem(event.target.value)}
         onKeyDown={({ key }) => key === 'Enter' && onAddListItem()}
       />
-      <button disabled={!currentListItem} onClick={() => onAddListItem()}>
+
+      <Button
+        color="primary"
+        disabled={!currentListItem}
+        onClick={() => onAddListItem()}
+        variant="contained"
+      >
         Add item to list
-      </button>
+      </Button>
 
       {openItems.map((item) => (
         <ListItem
