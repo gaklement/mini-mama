@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import AddList from './AddList'
-import { List, ListItem, ListItemText } from '@material-ui/core'
 
 function Lists({ history }) {
   const [fetchedLists, setFetchedLists] = useState([])
@@ -24,19 +23,16 @@ function Lists({ history }) {
     <div>
       <AddList onCreateList={(name) => handleCreateList(name)} />
       <p>Lists:</p>
-      <List dense={true}>
-        {fetchedLists.map((list) => (
-          <ListItem key={list.id}>
-            <ListItemText
-              primary={list.name}
-              secondary={list.id}
-              onClick={() => {
-                history.push(`/listDetail/${list.id}`)
-              }}
-            />
-          </ListItem>
-        ))}
-      </List>
+      {fetchedLists.map((list) => (
+        <div
+          key={list.id}
+          onClick={() => {
+            history.push(`/listDetail/${list.id}`)
+          }}
+        >
+          {list.name}
+        </div>
+      ))}
     </div>
   )
 }
