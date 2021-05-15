@@ -76,10 +76,12 @@ function ListDetail({ history, match }) {
                 setNewListName(event.target.value)
               }}
               onKeyDown={({ key }) =>
-                key === 'Enter' && updateListName(newListName)
+                key === 'Enter' && newListName && updateListName(newListName)
               }
             />
-            <button onClick={updateListName}>Confirm</button>
+            <button onClick={updateListName} disabled={!newListName}>
+              Confirm
+            </button>
           </div>
         ) : (
           <div>
