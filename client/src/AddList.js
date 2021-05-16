@@ -1,35 +1,26 @@
-import React, { useState } from 'react'
+import React from 'react'
+import useStyles from 'substyle'
 
-function AddList({ onCreateList }) {
-  const [name, setName] = useState('')
+function AddList({ history }) {
+  const styles = useStyles(defaultStyle, {})
+
   return (
-    <div>
-      <input
-        type="text"
-        id="standard-basic"
-        label="Name der Liste"
-        onChange={(event) => setName(event.target.value)}
-        onKeyDown={({ key }) => {
-          if (key === 'Enter') {
-            onCreateList(name)
-            setName('')
-          }
-        }}
-        value={name}
-      />
-      <button
-        color="primary"
-        variant="contained"
-        disabled={!name}
-        onClick={() => {
-          onCreateList(name)
-          setName('')
-        }}
-      >
-        Erstellen
-      </button>
-    </div>
+    <button
+      {...styles}
+      color="primary"
+      variant="contained"
+      onClick={() => {
+        history.push('/create')
+      }}
+    >
+      Neue Liste
+    </button>
   )
+}
+
+const defaultStyle = {
+  position: 'absolute',
+  bottom: '20px',
 }
 
 export default AddList

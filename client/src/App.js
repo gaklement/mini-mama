@@ -3,6 +3,7 @@ import Lists from './Lists'
 import useStyles from 'substyle'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import ListDetail from './ListDetail'
+import CreateNewList from './CreateNewList'
 
 function App() {
   const styles = useStyles(defaultStyle, {})
@@ -13,6 +14,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={Lists} />
+          <Route path="/create" exact component={CreateNewList} />
           <Route path="/listDetail/:listId" exact component={ListDetail} />
           <Route path="/" render={() => <div>404</div>} />
         </Switch>

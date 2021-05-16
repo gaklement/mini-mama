@@ -45,14 +45,18 @@ const lists = (req, res, next) => {
 
   // add new list
   if (req.method === 'POST') {
+    const listId = Math.floor(100000 + Math.random() * 900000).toString()
+
     database.insert({
-      id: Math.floor(100000 + Math.random() * 900000).toString(),
+      id: listId,
       createTime: Date.now(),
       name: req.body.name,
       items: [],
     })
 
-    res.status(200).json({})
+    res.status(200).json({
+      listId,
+    })
   }
 
   // add item to list
