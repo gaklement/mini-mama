@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 import ListItem from './ListItem'
 import Button from './Button'
+import AddItem from './AddItem'
 import useStyles from 'substyle'
 import IconButton from './IconButton'
 import ChangeListName from './ChangeListName'
@@ -95,21 +96,12 @@ function ListDetail({ history, match }) {
               <FontAwesomeIcon icon={faPen} />
             </IconButton>
           </div>
-          <input
-            type="text"
-            value={currentListItem}
-            onChange={(event) => setCurrentListItem(event.target.value)}
-            onKeyDown={({ key }) => key === 'Enter' && onAddListItem()}
-          />
 
-          <button
-            color="primary"
-            disabled={!currentListItem}
-            onClick={() => onAddListItem()}
-            variant="contained"
-          >
-            Add item to list
-          </button>
+          <AddItem
+            currentListItem={currentListItem}
+            onAddListItem={onAddListItem}
+            onChange={(event) => setCurrentListItem(event.target.value)}
+          />
 
           {openItems.map((item) => (
             <ListItem
@@ -159,6 +151,7 @@ const defaultStyle = {
     display: 'flex',
     fontSize: 20,
     justifyContent: 'space-between',
+    marginBottom: 5,
   },
 }
 
