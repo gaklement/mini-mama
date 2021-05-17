@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Button from './Button'
+import IconButton from './IconButton'
 import useStyles from 'substyle'
 import colors from './colors'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
 function Lists({ history }) {
   const [fetchedLists, setFetchedLists] = useState([])
+  const [editing, setEditing] = useState(false)
   const styles = useStyles(defaultStyle, {})
 
   useEffect(() => {
@@ -23,14 +27,24 @@ function Lists({ history }) {
       <div {...styles('listsTitle')}>Meine Listen</div>
       <div {...styles('listsContainer')}>
         {fetchedLists.map((list) => (
-          <div
-            {...styles('list')}
-            key={list.id}
-            onClick={() => {
-              history.push(`/listDetail/${list.id}`)
-            }}
-          >
-            {list.name}
+          <div {...styles('listContainer')}>
+            <div
+              {...styles('listTitle')}
+              key={list.id}
+              onClick={() => {
+                history.push(`/listDetail/${list.id}`)
+              }}
+            >
+              {list.name}
+            </div>
+            {editing && (
+              <IconButton
+                onClick={() => setEditing(false)}
+                style={styles('deleleList')}
+              >
+                <FontAwesomeIcon icon={faTrashAlt} />
+              </IconButton>
+            )}
           </div>
         ))}
       </div>
@@ -44,6 +58,16 @@ function Lists({ history }) {
           Neue Liste
         </Button>
       </div>
+      <div {...styles('editButton')}>
+        <Button
+          onClick={() => {
+            setEditing(true)
+          }}
+          secondary
+        >
+          Bearbeiten
+        </Button>
+      </div>
     </div>
   )
 }
@@ -53,17 +77,34 @@ const defaultStyle = {
     bottom: 20,
     position: 'absolute',
   },
-  list: {
-    backgroundColor: colors.darkBlue,
-    fontSize: 20,
-    marginBottom: 5,
-    paddingBottom: 10,
-    paddingLeft: 5,
-    paddingTop: 10,
+  deleleList: {
+    backgroundColor: colors.turquoise,
+  },
+  editButton: {
+    bottom: 20,
+    position: 'absolute',
+    right: 0,
+    marginRight: 8,
   },
   listsContainer: {
+    marginBottom: 20,
     maxHeight: 310,
     overflowY: 'scroll',
+  },
+  listContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  listTitle: {
+    backgroundColor: colors.darkBlue,
+    borderRadius: 3,
+    flexGrow: 1,
+    fontSize: 20,
+    marginBottom: 5,
+    marginRight: 5,
+    paddingBottom: 7,
+    paddingLeft: 5,
+    paddingTop: 7,
   },
   listsTitle: {
     fontSize: '24px',

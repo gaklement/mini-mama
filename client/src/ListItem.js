@@ -14,10 +14,6 @@ function ListItem({ listItem, onClick }) {
 
 const defaultStyle = {
   borderBottom: '1px solid white',
-  // fontSize: 20,
-  // marginBottom: 10,
-  // marginTop: 10,
-
   done: {
     float: 'right',
   },

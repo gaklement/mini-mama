@@ -25,7 +25,7 @@ const defaultStyle = {
   display: 'flex',
   fontFamily: 'monospace',
   fontSize: 15,
-  height: 35,
+  height: 36,
   justifyContent: 'center',
   width: 135,
 

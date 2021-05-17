@@ -8,7 +8,7 @@ function IconButton({ style, ...rest }) {
 }
 
 const defaultStyle = {
-  width: 35,
+  width: 36,
 }
 
 export default IconButton
