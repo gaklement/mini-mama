@@ -21,17 +21,19 @@ function Lists({ history }) {
   return (
     <div>
       <div {...styles('listsTitle')}>Meine Listen</div>
-      {fetchedLists.map((list) => (
-        <div
-          {...styles('list')}
-          key={list.id}
-          onClick={() => {
-            history.push(`/listDetail/${list.id}`)
-          }}
-        >
-          {list.name}
-        </div>
-      ))}
+      <div {...styles('listsContainer')}>
+        {fetchedLists.map((list) => (
+          <div
+            {...styles('list')}
+            key={list.id}
+            onClick={() => {
+              history.push(`/listDetail/${list.id}`)
+            }}
+          >
+            {list.name}
+          </div>
+        ))}
+      </div>
 
       <div {...styles('createListButton')}>
         <Button
@@ -58,6 +60,10 @@ const defaultStyle = {
     paddingBottom: 10,
     paddingLeft: 5,
     paddingTop: 10,
+  },
+  listsContainer: {
+    maxHeight: '32em',
+    overflowY: 'scroll',
   },
   listsTitle: {
     fontSize: '24px',
