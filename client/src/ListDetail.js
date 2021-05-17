@@ -4,6 +4,7 @@ import ListItem from './ListItem'
 import Button from './Button'
 import useStyles from 'substyle'
 import IconButton from './IconButton'
+import ChangeListName from './ChangeListName'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
@@ -11,7 +12,7 @@ function ListDetail({ history, match }) {
   const [currentListItem, setCurrentListItem] = useState('')
   const [currentList, setCurrentList] = useState({})
   const [updatingListName, setUpdatingListName] = useState(false)
-  const [newListName, setNewListName] = useState('')
+  const [newListName, setNewListName] = useState(currentList.name)
   const styles = useStyles(defaultStyle, {})
 
   const fetchList = useCallback(() => {
@@ -21,6 +22,7 @@ function ListDetail({ history, match }) {
   }, [match.params.listId])
 
   useEffect(() => fetchList(), [fetchList])
+  useEffect(() => setNewListName(currentList.name), [currentList])
 
   const onAddListItem = useCallback(() => {
     axios
@@ -68,20 +70,11 @@ function ListDetail({ history, match }) {
     <div>
       <div>
         {updatingListName ? (
-          <div>
-            <input
-              type="text"
-              onChange={(event) => {
-                setNewListName(event.target.value)
-              }}
-              onKeyDown={({ key }) =>
-                key === 'Enter' && newListName && updateListName(newListName)
-              }
-            />
-            <button onClick={updateListName} disabled={!newListName}>
-              Confirm
-            </button>
-          </div>
+          <ChangeListName
+            newListName={newListName}
+            onChange={(event) => setNewListName(event.target.value)}
+            updateListName={updateListName}
+          />
         ) : (
           <div {...styles('listTitle')}>
             {currentList.name}
