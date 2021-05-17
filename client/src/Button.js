@@ -17,13 +17,16 @@ function Button({ disabled, children, onClick, secondary, style }) {
 }
 
 const defaultStyle = {
+  alignItems: 'center',
   backgroundColor: colors.apricot,
   border: 'none',
   borderRadius: 3,
   color: colors.apricotDark,
+  display: 'flex',
   fontFamily: 'monospace',
   fontSize: 15,
   height: 35,
+  justifyContent: 'center',
   width: 135,
 
   '&disabled': {

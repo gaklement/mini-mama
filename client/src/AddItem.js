@@ -25,6 +25,7 @@ function AddItem({ currentListItem, onAddListItem, onChange }) {
 
 const defaultStyle = {
   display: 'flex',
+  marginBottom: 20,
   addItemInput: {
     flexGrow: 1,
     marginRight: 5,
