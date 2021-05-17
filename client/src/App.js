@@ -4,13 +4,17 @@ import useStyles from 'substyle'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import ListDetail from './ListDetail'
 import CreateNewList from './CreateNewList'
+import rooster from './logo-rooster.png'
 
 function App() {
   const styles = useStyles(defaultStyle, {})
 
   return (
     <div {...styles}>
-      <div {...styles('header')}>I LIKE FOOD</div>
+      <div {...styles('header')}>
+        <img {...styles('logo')} src={rooster} alt="logo-rooster" />
+        <div {...styles('name')}>I LIKE FOOD</div>
+      </div>
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={Lists} />
@@ -25,11 +29,15 @@ function App() {
 
 const defaultStyle = {
   header: {
-    borderBottom: '1px solid grey',
-    fontSize: 24,
+    display: 'flex',
+    marginBottom: 50,
+  },
+  logo: {
+    height: 60,
+  },
+  name: {
+    fontSize: 20,
     margin: 'auto',
-    textAlign: 'center',
-    width: '70%',
   },
 }
 
