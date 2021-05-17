@@ -19,7 +19,7 @@ function Lists({ history }) {
 
   return (
     <div>
-      <p {...styles('listsTitle')}>Meine Listen</p>
+      <div {...styles('listsTitle')}>Meine Listen</div>
       {fetchedLists.map((list) => (
         <div
           key={list.id}
@@ -36,8 +36,9 @@ function Lists({ history }) {
           onClick={() => {
             history.push('/create')
           }}
-          label="Neue Liste"
-        />
+        >
+          Neue Liste
+        </Button>
       </div>
     </div>
   )

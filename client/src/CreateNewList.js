@@ -29,17 +29,19 @@ function CreateNewList({ history }) {
       />
       <div {...styles('actions')}>
         <Button
-          label="Abbrechen"
           onClick={() => history.push('/')}
           secondary
           style={styles('cancel')}
-        />
+        >
+          Abbrechen
+        </Button>
         <Button
           onClick={() => onCreateList(name)}
           disabled={!name}
-          label="Fertig"
           style={styles('confirm')}
-        />
+        >
+          Fertig
+        </Button>
       </div>
     </div>
   )

@@ -2,7 +2,7 @@ import React from 'react'
 import useStyles from 'substyle'
 import colors from './colors'
 
-function Button({ disabled, label, onClick, secondary, style }) {
+function Button({ disabled, children, onClick, secondary, style }) {
   const styles = useStyles(
     defaultStyle,
     { style },
@@ -11,7 +11,7 @@ function Button({ disabled, label, onClick, secondary, style }) {
 
   return (
     <button {...styles} disabled={disabled} onClick={onClick}>
-      {label}
+      {children}
     </button>
   )
 }

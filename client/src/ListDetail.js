@@ -1,12 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 import ListItem from './ListItem'
+import Button from './Button'
+import useStyles from 'substyle'
+import IconButton from './IconButton'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPen } from '@fortawesome/free-solid-svg-icons'
 
 function ListDetail({ history, match }) {
   const [currentListItem, setCurrentListItem] = useState('')
   const [currentList, setCurrentList] = useState({})
   const [updatingListName, setUpdatingListName] = useState(false)
   const [newListName, setNewListName] = useState('')
+  const styles = useStyles(defaultStyle, {})
 
   const fetchList = useCallback(() => {
     axios
@@ -60,13 +66,7 @@ function ListDetail({ history, match }) {
 
   return (
     <div>
-      <button
-        color="primary"
-        variant="contained"
-        onClick={() => history.push('/')}
-      >
-        Zurück
-      </button>
+      {/* <Button label="Zurück" onClick={() => history.push('/')} /> */}
       <div>
         {updatingListName ? (
           <div>
@@ -84,18 +84,17 @@ function ListDetail({ history, match }) {
             </button>
           </div>
         ) : (
-          <div>
-            {`List Detail for "${currentList.name}"`}
+          <div {...styles('listTitle')}>
+            {currentList.name}
 
-            <button
-              color="primary"
+            <IconButton
+              // icon="edit"
               onClick={() => {
                 setUpdatingListName(true)
               }}
-              variant="contained"
             >
-              Change name
-            </button>
+              <FontAwesomeIcon icon={faPen} />
+            </IconButton>
           </div>
         )}
       </div>
@@ -139,6 +138,12 @@ function ListDetail({ history, match }) {
       )}
     </div>
   )
+}
+
+const defaultStyle = {
+  listTitle: {
+    fontSize: 20,
+  },
 }
 
 export default ListDetail
