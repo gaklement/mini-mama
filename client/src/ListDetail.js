@@ -69,11 +69,20 @@ function ListDetail({ history, match }) {
   return (
     <div>
       {updatingListName ? (
-        <ChangeListName
-          newListName={newListName}
-          onChange={(event) => setNewListName(event.target.value)}
-          updateListName={updateListName}
-        />
+        <div>
+          <ChangeListName
+            newListName={newListName}
+            onChange={(event) => setNewListName(event.target.value)}
+            updateListName={updateListName}
+          />
+          <Button
+            onClick={() => setUpdatingListName(false)}
+            secondary
+            style={styles('cancel')}
+          >
+            Abbrechen
+          </Button>
+        </div>
       ) : (
         <div>
           <div {...styles('listTitle')}>
@@ -138,14 +147,18 @@ function ListDetail({ history, match }) {
 }
 
 const defaultStyle = {
+  backButton: {
+    position: 'absolute',
+    bottom: 20,
+  },
+  cancel: {
+    position: 'absolute',
+    bottom: 20,
+  },
   listTitle: {
     display: 'flex',
     fontSize: 20,
     justifyContent: 'space-between',
-  },
-  backButton: {
-    position: 'absolute',
-    bottom: 20,
   },
 }
 
