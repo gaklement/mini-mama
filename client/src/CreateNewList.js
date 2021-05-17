@@ -31,7 +31,7 @@ function CreateNewList({ history }) {
         <Button
           onClick={() => history.push('/')}
           secondary
-          style={styles('cancel')}
+          style={styles('cancelButton')}
         >
           Abbrechen
         </Button>
@@ -55,7 +55,7 @@ const defaultStyle = {
     justifyContent: 'space-between',
     marginTop: 5,
   },
-  cancel: {
+  cancelButton: {
     marginRight: 5,
     width: '50%',
   },

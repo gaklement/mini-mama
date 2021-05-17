@@ -78,7 +78,7 @@ function ListDetail({ history, match }) {
           <Button
             onClick={() => setUpdatingListName(false)}
             secondary
-            style={styles('cancel')}
+            style={styles('cancelButton')}
           >
             Abbrechen
           </Button>
@@ -120,7 +120,7 @@ function ListDetail({ history, match }) {
             />
           ))}
 
-          {closedItems && (
+          {closedItems.length > 0 && (
             <div>
               <p>Closed</p>
               {closedItems.map((item) => (
@@ -151,7 +151,7 @@ const defaultStyle = {
     position: 'absolute',
     bottom: 20,
   },
-  cancel: {
+  cancelButton: {
     position: 'absolute',
     bottom: 20,
   },
