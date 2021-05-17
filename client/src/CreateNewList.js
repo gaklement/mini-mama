@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import Button from './Button'
 
 function CreateNewList({ history }) {
   const [name, setName] = useState('')
@@ -25,9 +26,11 @@ function CreateNewList({ history }) {
         }}
         value={name}
       />
-      <button onClick={() => onCreateList(name)} disabled={!name}>
-        Go
-      </button>
+      <Button
+        onClick={() => onCreateList(name)}
+        disabled={!name}
+        label="Fertig"
+      />
     </div>
   )
 }

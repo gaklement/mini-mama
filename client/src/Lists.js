@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import AddList from './AddList'
+import Button from './Button'
 import useStyles from 'substyle'
 
 function Lists({ history }) {
@@ -31,7 +31,14 @@ function Lists({ history }) {
         </div>
       ))}
 
-      <AddList history={history} />
+      <div {...styles('createListButton')}>
+        <Button
+          onClick={() => {
+            history.push('/create')
+          }}
+          label="Neue Liste"
+        />
+      </div>
     </div>
   )
 }
@@ -39,6 +46,10 @@ function Lists({ history }) {
 const defaultStyle = {
   listsTitle: {
     fontSize: '20px',
+  },
+  createListButton: {
+    bottom: 20,
+    position: 'absolute',
   },
 }
 
