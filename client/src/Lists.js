@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Button from './Button'
 import useStyles from 'substyle'
+import colors from './colors'
 
 function Lists({ history }) {
   const [fetchedLists, setFetchedLists] = useState([])
@@ -22,6 +23,7 @@ function Lists({ history }) {
       <div {...styles('listsTitle')}>Meine Listen</div>
       {fetchedLists.map((list) => (
         <div
+          {...styles('list')}
           key={list.id}
           onClick={() => {
             history.push(`/listDetail/${list.id}`)
@@ -45,12 +47,21 @@ function Lists({ history }) {
 }
 
 const defaultStyle = {
-  listsTitle: {
-    fontSize: '20px',
-  },
   createListButton: {
     bottom: 20,
     position: 'absolute',
+  },
+  list: {
+    backgroundColor: colors.darkBlue,
+    fontSize: 20,
+    marginBottom: 5,
+    paddingBottom: 10,
+    paddingLeft: 5,
+    paddingTop: 10,
+  },
+  listsTitle: {
+    fontSize: '24px',
+    marginBottom: 20,
   },
 }
 

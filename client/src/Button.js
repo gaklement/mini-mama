@@ -18,10 +18,10 @@ function Button({ disabled, children, onClick, secondary, style }) {
 
 const defaultStyle = {
   alignItems: 'center',
-  backgroundColor: colors.apricot,
+  backgroundColor: colors.yellow,
   border: 'none',
   borderRadius: 3,
-  color: colors.apricotDark,
+  color: colors.darkGrey,
   display: 'flex',
   fontFamily: 'monospace',
   fontSize: 15,

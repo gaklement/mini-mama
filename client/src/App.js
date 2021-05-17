@@ -4,8 +4,9 @@ import useStyles from 'substyle'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import ListDetail from './ListDetail'
 import CreateNewList from './CreateNewList'
-import rooster from './logo-rooster.png'
+import rooster from './logos/apricot.png'
 
+// #e8c750 yellow
 function App() {
   const styles = useStyles(defaultStyle, {})
 

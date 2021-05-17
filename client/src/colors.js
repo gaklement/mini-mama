@@ -1,6 +1,7 @@
 const colors = {
   turquoise: '#6cc2bd',
   blue: '#5a819e',
+  darkBlue: '#4a718e',
   purple: '#7d7aa2',
   apricot: '#f67e7d',
   apricotDark: '#773231',
@@ -10,6 +11,7 @@ const colors = {
   grey: '#b5b5b5',
   darkGrey: '#313131',
   greyDisabled: '#969696',
+  yellow: '#e8c750',
 }
 
 export default colors
