@@ -62,7 +62,7 @@ const defaultStyle = {
     paddingTop: 10,
   },
   listsContainer: {
-    maxHeight: 250,
+    maxHeight: 310,
     overflowY: 'scroll',
   },
   listsTitle: {
