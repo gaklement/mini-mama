@@ -28,11 +28,17 @@ function CreateNewList({ history }) {
         value={name}
       />
       <div {...styles('actions')}>
-        <Button label="Abbrechen" onClick={() => history.push('/')} secondary />
+        <Button
+          label="Abbrechen"
+          onClick={() => history.push('/')}
+          secondary
+          style={styles('cancel')}
+        />
         <Button
           onClick={() => onCreateList(name)}
           disabled={!name}
           label="Fertig"
+          style={styles('confirm')}
         />
       </div>
     </div>
@@ -45,6 +51,14 @@ const defaultStyle = {
   actions: {
     display: 'flex',
     justifyContent: 'space-between',
+    marginTop: 5,
+  },
+  cancel: {
+    marginRight: 5,
+    width: '50%',
+  },
+  confirm: {
+    width: '50%',
   },
 }
 

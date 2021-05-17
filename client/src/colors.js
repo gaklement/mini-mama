@@ -8,6 +8,7 @@ const colors = {
   salmon: '#ffc1a7',
   concealer: '#ffe5c4',
   grey: '#b5b5b5',
+  darkGrey: '#313131',
   greyDisabled: '#969696',
 }
 

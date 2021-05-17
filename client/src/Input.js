@@ -22,7 +22,7 @@ const defaultStyle = {
   borderRadius: 3,
   border: 'none',
   fontFamily: 'monospace',
-  fonSize: 15,
+  fontSize: 15,
   height: 33,
   paddingLeft: 5,
 }
