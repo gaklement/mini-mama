@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import Button from './Button'
+import Input from './Input'
 
 function CreateNewList({ history }) {
   const [name, setName] = useState('')
@@ -14,16 +15,14 @@ function CreateNewList({ history }) {
 
   return (
     <div>
-      <input
-        type="text"
-        id="standard-basic"
-        label="Name der Liste"
+      <Input
         onChange={(event) => setName(event.target.value)}
         onKeyDown={({ key }) => {
           if (key === 'Enter') {
             onCreateList(name)
           }
         }}
+        placeholder="Name der Liste"
         value={name}
       />
       <Button
