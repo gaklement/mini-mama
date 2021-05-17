@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/static/css/main.5afd4976.chunk.css",
-    "main.js": "/static/js/main.b461aa0b.chunk.js",
-    "main.js.map": "/static/js/main.b461aa0b.chunk.js.map",
+    "main.js": "/static/js/main.a26a1deb.chunk.js",
+    "main.js.map": "/static/js/main.a26a1deb.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.a9cbac35.js",
     "runtime-main.js.map": "/static/js/runtime-main.a9cbac35.js.map",
     "static/js/2.bc95ffa4.chunk.js": "/static/js/2.bc95ffa4.chunk.js",
@@ -12,12 +12,12 @@
     "index.html": "/index.html",
     "static/css/main.5afd4976.chunk.css.map": "/static/css/main.5afd4976.chunk.css.map",
     "static/js/2.bc95ffa4.chunk.js.LICENSE.txt": "/static/js/2.bc95ffa4.chunk.js.LICENSE.txt",
-    "static/media/logo-rooster.c06ec007.png": "/static/media/logo-rooster.c06ec007.png"
+    "static/media/apricot.7d29a382.png": "/static/media/apricot.7d29a382.png"
   },
   "entrypoints": [
     "static/js/runtime-main.a9cbac35.js",
     "static/js/2.bc95ffa4.chunk.js",
     "static/css/main.5afd4976.chunk.css",
-    "static/js/main.b461aa0b.chunk.js"
+    "static/js/main.a26a1deb.chunk.js"
   ]
 }
