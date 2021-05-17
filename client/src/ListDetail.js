@@ -76,56 +76,59 @@ function ListDetail({ history, match }) {
             updateListName={updateListName}
           />
         ) : (
-          <div {...styles('listTitle')}>
-            {currentList.name}
-            <IconButton
-              onClick={() => {
-                setUpdatingListName(true)
-              }}
+          <div>
+            <div {...styles('listTitle')}>
+              {currentList.name}
+              <IconButton
+                onClick={() => {
+                  setUpdatingListName(true)
+                }}
+              >
+                <FontAwesomeIcon icon={faPen} />
+              </IconButton>
+            </div>
+            <input
+              type="text"
+              value={currentListItem}
+              onChange={(event) => setCurrentListItem(event.target.value)}
+              onKeyDown={({ key }) => key === 'Enter' && onAddListItem()}
+            />
+
+            <button
+              color="primary"
+              disabled={!currentListItem}
+              onClick={() => onAddListItem()}
+              variant="contained"
             >
-              <FontAwesomeIcon icon={faPen} />
-            </IconButton>
+              Add item to list
+            </button>
+
+            {openItems.map((item) => (
+              <ListItem
+                key={item.id}
+                listId={currentList.id}
+                listItem={item}
+                onClick={toggleItem}
+              />
+            ))}
+
+            {closedItems && (
+              <div>
+                <p>Closed</p>
+                {closedItems.map((item) => (
+                  <ListItem
+                    key={item.id}
+                    listId={currentList.id}
+                    listItem={item}
+                    onClick={toggleItem}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>
-      <input
-        type="text"
-        value={currentListItem}
-        onChange={(event) => setCurrentListItem(event.target.value)}
-        onKeyDown={({ key }) => key === 'Enter' && onAddListItem()}
-      />
 
-      <button
-        color="primary"
-        disabled={!currentListItem}
-        onClick={() => onAddListItem()}
-        variant="contained"
-      >
-        Add item to list
-      </button>
-
-      {openItems.map((item) => (
-        <ListItem
-          key={item.id}
-          listId={currentList.id}
-          listItem={item}
-          onClick={toggleItem}
-        />
-      ))}
-
-      {closedItems && (
-        <div>
-          <p>Closed</p>
-          {closedItems.map((item) => (
-            <ListItem
-              key={item.id}
-              listId={currentList.id}
-              listItem={item}
-              onClick={toggleItem}
-            />
-          ))}
-        </div>
-      )}
       <IconButton
         onClick={() => history.push('/')}
         secondary
