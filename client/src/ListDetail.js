@@ -66,9 +66,6 @@ function ListDetail({ history, match }) {
 
   return (
     <div>
-      <IconButton onClick={() => history.push('/')} secondary>
-        <FontAwesomeIcon icon={faArrowLeft} />
-      </IconButton>
       <div>
         {updatingListName ? (
           <div>
@@ -136,6 +133,13 @@ function ListDetail({ history, match }) {
           ))}
         </div>
       )}
+      <IconButton
+        onClick={() => history.push('/')}
+        secondary
+        style={styles('backButton')}
+      >
+        <FontAwesomeIcon icon={faArrowLeft} />
+      </IconButton>
     </div>
   )
 }
@@ -145,6 +149,10 @@ const defaultStyle = {
     display: 'flex',
     fontSize: 20,
     justifyContent: 'space-between',
+  },
+  backButton: {
+    position: 'absolute',
+    bottom: 20,
   },
 }
 

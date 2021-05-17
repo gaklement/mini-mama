@@ -1,10 +1,10 @@
 import Button from './Button'
 import useStyles from 'substyle'
 
-function IconButton(props) {
-  const styles = useStyles(defaultStyle, {})
+function IconButton({ style, ...rest }) {
+  const styles = useStyles(defaultStyle, { style })
 
-  return <Button {...props} style={styles} />
+  return <Button {...rest} style={styles} />
 }
 
 const defaultStyle = {
