@@ -5,7 +5,7 @@ import Button from './Button'
 import useStyles from 'substyle'
 import IconButton from './IconButton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPen } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 function ListDetail({ history, match }) {
   const [currentListItem, setCurrentListItem] = useState('')
@@ -66,7 +66,9 @@ function ListDetail({ history, match }) {
 
   return (
     <div>
-      {/* <Button label="Zurück" onClick={() => history.push('/')} /> */}
+      <IconButton onClick={() => history.push('/')} secondary>
+        <FontAwesomeIcon icon={faArrowLeft} />
+      </IconButton>
       <div>
         {updatingListName ? (
           <div>
@@ -86,9 +88,7 @@ function ListDetail({ history, match }) {
         ) : (
           <div {...styles('listTitle')}>
             {currentList.name}
-
             <IconButton
-              // icon="edit"
               onClick={() => {
                 setUpdatingListName(true)
               }}
@@ -142,7 +142,9 @@ function ListDetail({ history, match }) {
 
 const defaultStyle = {
   listTitle: {
+    display: 'flex',
     fontSize: 20,
+    justifyContent: 'space-between',
   },
 }
 
