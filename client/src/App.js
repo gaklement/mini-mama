@@ -11,11 +11,18 @@ function App() {
 
   return (
     <div {...styles}>
-      <div {...styles('header')}>
-        <img {...styles('logo')} src={rooster} alt="logo-rooster" />
-        <div {...styles('name')}>I LIKE FOOD</div>
-      </div>
       <BrowserRouter>
+        <div {...styles('header')}>
+          <img
+            {...styles('logo')}
+            src={rooster}
+            alt="logo-rooster"
+            onClick={() => (window.location = '/')}
+          />
+          <div {...styles('name')} onClick={() => (window.location = '/')}>
+            I LIKE FOOD
+          </div>
+        </div>
         <Switch>
           <Route path="/" exact component={Lists} />
           <Route path="/create" exact component={CreateNewList} />
