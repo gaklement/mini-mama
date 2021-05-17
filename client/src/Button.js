@@ -2,8 +2,12 @@ import React from 'react'
 import useStyles from 'substyle'
 import colors from './colors'
 
-function Button({ disabled, label, onClick }) {
-  const styles = useStyles(defaultStyle, {})
+function Button({ disabled, label, onClick, secondary }) {
+  const styles = useStyles(
+    defaultStyle,
+    {},
+    { '&secondary': secondary, '&disabled': disabled }
+  )
 
   return (
     <button {...styles} disabled={disabled} onClick={onClick}>
@@ -21,6 +25,14 @@ const defaultStyle = {
   fontSize: 15,
   height: 35,
   width: 135,
+
+  '&disabled': {
+    color: colors.greyDisabled,
+    backgroundColor: colors.apricotDisabled,
+  },
+  '&secondary': {
+    backgroundColor: colors.grey,
+  },
 }
 
 export default Button

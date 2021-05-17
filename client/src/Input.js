@@ -20,7 +20,7 @@ function Input({ onChange, onKeyDown, placeholder, value }) {
 
 const defaultStyle = {
   borderRadius: 3,
-  border: '1px solid black',
+  border: 'none',
   fontFamily: 'monospace',
   fonSize: 15,
   height: 33,
