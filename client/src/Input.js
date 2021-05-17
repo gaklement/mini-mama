@@ -1,7 +1,7 @@
 import useStyles from 'substyle'
 
-function Input({ onChange, onKeyDown, placeholder, value }) {
-  const styles = useStyles(defaultStyle, {})
+function Input({ onChange, onKeyDown, placeholder, style, value }) {
+  const styles = useStyles(defaultStyle, { style })
   return (
     <input
       {...styles}
