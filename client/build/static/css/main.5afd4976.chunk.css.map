@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://src/styling.css"],"names":[],"mappings":"AAEA,KACI,wBAAyB,CACzB,aAAc,CACd,qBACJ","file":"main.5afd4976.chunk.css","sourcesContent":["\n\nbody {\n    background-color: #5a819e;\n    color: #2d2d63;\n    font-family: monospace; \n}"]}
