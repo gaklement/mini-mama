@@ -11,7 +11,7 @@ function Lists({ history }) {
   const [fetchedLists, setFetchedLists] = useState([])
   const [editing, setEditing] = useState(false)
   const [confirmDeleteList, setConfirmDeleteList] = useState(false)
-  const [requestDeleteForListId, setRequestDeleteForListId] = useState('')
+  const [requestDeleteForList, setRequestDeleteForList] = useState({})
   const styles = useStyles(defaultStyle, {})
 
   useEffect(() => {
@@ -42,7 +42,7 @@ function Lists({ history }) {
             {editing && (
               <IconButton
                 onClick={() => {
-                  setRequestDeleteForListId(list.id)
+                  setRequestDeleteForList(list)
                   setConfirmDeleteList(true)
                 }}
                 style={styles('deleleList')}
@@ -74,30 +74,52 @@ function Lists({ history }) {
         </Button>
       </div>
       {confirmDeleteList && (
-        <div
-          {...styles('confirmDeleteModal')}
-          onClick={() => {
-            setEditing(false)
-            axios
-              .delete(`/api/v1/list?listId=${requestDeleteForListId}`)
-              .then(() => {
-                fetchLists()
-                setRequestDeleteForListId('')
+        <div {...styles('confirmDeleteModal')}>
+          <div {...styles('confirmDeleteHint')}>
+            {`Soll die Liste "${requestDeleteForList.name}" wirklich gelöscht werden?`}
+          </div>
+          <div {...styles('modalActionsContainer')}>
+            <Button
+              secondary
+              onClick={() => {
+                setRequestDeleteForList({})
                 setConfirmDeleteList(false)
-              })
-          }}
-        >
-          Confirm
+              }}
+            >
+              Abbrechen
+            </Button>
+            <Button
+              onClick={() => {
+                setEditing(false)
+                axios
+                  .delete(`/api/v1/list?listId=${requestDeleteForList.id}`)
+                  .then(() => {
+                    fetchLists()
+                    setRequestDeleteForList({})
+                    setConfirmDeleteList(false)
+                  })
+              }}
+            >
+              Bestätigen
+            </Button>
+          </div>
         </div>
       )}
     </div>
   )
 }
 
-const height = 30
+const height = 20
 const width = 90
 
 const defaultStyle = {
+  confirmDeleteHint: {
+    color: colors.darkGrey,
+    fontSize: 16,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 20,
+  },
   confirmDeleteModal: {
     backgroundColor: 'white',
     borderRadius: 3,
@@ -145,6 +167,11 @@ const defaultStyle = {
   listsTitle: {
     fontSize: '24px',
     marginBottom: 20,
+  },
+  modalActionsContainer: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    paddingTop: 20,
   },
 }
 
