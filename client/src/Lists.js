@@ -64,14 +64,25 @@ function Lists({ history }) {
         </Button>
       </div>
       <div {...styles('editButton')}>
-        <Button
-          onClick={() => {
-            setEditing(true)
-          }}
-          secondary
-        >
-          Bearbeiten
-        </Button>
+        {editing ? (
+          <Button
+            onClick={() => {
+              setEditing(false)
+            }}
+            secondary
+          >
+            Abbrechen
+          </Button>
+        ) : (
+          <Button
+            onClick={() => {
+              setEditing(true)
+            }}
+            secondary
+          >
+            Bearbeiten
+          </Button>
+        )}
       </div>
       {confirmDeleteList && (
         <div {...styles('confirmDeleteModal')}>
