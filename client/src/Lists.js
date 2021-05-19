@@ -39,7 +39,12 @@ function Lists({ history }) {
             </div>
             {editing && (
               <IconButton
-                onClick={() => setEditing(false)}
+                onClick={() => {
+                  setEditing(false)
+                  axios.delete(`/api/v1/list?listId=${list.id}`).then(() => {
+                    fetchLists()
+                  })
+                }}
                 style={styles('deleleList')}
               >
                 <FontAwesomeIcon icon={faTrashAlt} />

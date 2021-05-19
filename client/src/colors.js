@@ -2,6 +2,7 @@ const colors = {
   turquoise: '#6cc2bd',
   blue: '#5a819e',
   darkBlue: '#4a718e',
+  jiggaBlue: '#1D394D',
   purple: '#7d7aa2',
   apricot: '#f67e7d',
   apricotDark: '#773231',

@@ -26,6 +26,13 @@ const list = (req, res, next) => {
 
     res.status(200).json({})
   }
+
+  // delete a list
+  if (req.method === 'DELETE') {
+    database.remove({ id: req.query.listId }, {}, () => {
+      res.status(200).json({})
+    })
+  }
 }
 
 const lists = (req, res, next) => {
