@@ -10,6 +10,8 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 function Lists({ history }) {
   const [fetchedLists, setFetchedLists] = useState([])
   const [editing, setEditing] = useState(false)
+  const [confirmDeleteList, setConfirmDeleteList] = useState(false)
+  const [requestDeleteForListId, setRequestDeleteForListId] = useState('')
   const styles = useStyles(defaultStyle, {})
 
   useEffect(() => {
@@ -40,10 +42,8 @@ function Lists({ history }) {
             {editing && (
               <IconButton
                 onClick={() => {
-                  setEditing(false)
-                  axios.delete(`/api/v1/list?listId=${list.id}`).then(() => {
-                    fetchLists()
-                  })
+                  setRequestDeleteForListId(list.id)
+                  setConfirmDeleteList(true)
                 }}
                 style={styles('deleleList')}
               >
@@ -73,11 +73,42 @@ function Lists({ history }) {
           Bearbeiten
         </Button>
       </div>
+      {confirmDeleteList && (
+        <div
+          {...styles('confirmDeleteModal')}
+          onClick={() => {
+            setEditing(false)
+            axios
+              .delete(`/api/v1/list?listId=${requestDeleteForListId}`)
+              .then(() => {
+                fetchLists()
+                setRequestDeleteForListId('')
+                setConfirmDeleteList(false)
+              })
+          }}
+        >
+          Confirm
+        </div>
+      )}
     </div>
   )
 }
 
+const height = 30
+const width = 90
+
 const defaultStyle = {
+  confirmDeleteModal: {
+    backgroundColor: 'white',
+    borderRadius: 3,
+    bottom: `${(100 - height) / 2}%`,
+    height: `${height}%`,
+    justifyContent: 'center',
+    opacity: '90%',
+    position: 'absolute',
+    right: `${(100 - width) / 2}%`,
+    width: `${90}%`,
+  },
   createListButton: {
     bottom: 20,
     position: 'absolute',
