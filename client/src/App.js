@@ -4,7 +4,7 @@ import useStyles from 'substyle'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import ListDetail from './ListDetail'
 import CreateNewList from './CreateNewList'
-import rooster from './logos/apricot.png'
+import rooster from './logos/rocco_blue.png'
 
 // #e8c750 yellow
 function App() {
@@ -20,9 +20,6 @@ function App() {
             alt="logo-rooster"
             onClick={() => (window.location = '/')}
           />
-          <div {...styles('name')} onClick={() => (window.location = '/')}>
-            I LIKE FOOD
-          </div>
         </div>
         <Switch>
           <Route path="/" exact component={Lists} />
@@ -41,11 +38,7 @@ const defaultStyle = {
     marginBottom: 50,
   },
   logo: {
-    height: 60,
-  },
-  name: {
-    fontSize: 20,
-    margin: 'auto',
+    width: '30%',
   },
 }
 
