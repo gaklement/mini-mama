@@ -29,10 +29,9 @@ function Lists({ history }) {
       <div {...styles('listsTitle')}>Meine Listen</div>
       <div {...styles('listsContainer')}>
         {fetchedLists.map((list) => (
-          <div {...styles('listContainer')}>
+          <div {...styles('listContainer')} key={list.id}>
             <div
               {...styles('listTitle')}
-              key={list.id}
               onClick={() => {
                 history.push(`/listDetail/${list.id}`)
               }}
@@ -148,6 +147,7 @@ const defaultStyle = {
   },
   deleleList: {
     backgroundColor: colors.turquoise,
+    minHeight: 38,
   },
   editButton: {
     bottom: 20,
