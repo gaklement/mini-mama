@@ -23,7 +23,8 @@ const defaultStyle = {
   border: 'none',
   fontFamily: 'monospace',
   fontSize: 15,
-  height: 33,
+  marginTop: '0em',
+  marginBottom: '0em',
   paddingLeft: 5,
 }
 
