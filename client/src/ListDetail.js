@@ -26,10 +26,14 @@ function ListDetail({ history, match }) {
   useEffect(() => setNewListName(currentList.name), [currentList])
 
   const onAddListItem = useCallback(() => {
+    const capitalizedListItem = `${currentListItem
+      .charAt(0)
+      .toUpperCase()}${currentListItem.slice(1)}`
+
     axios
       .put('/api/v1/lists', {
         id: match.params.listId,
-        item: currentListItem,
+        item: capitalizedListItem,
       })
       .then(() => fetchList())
 

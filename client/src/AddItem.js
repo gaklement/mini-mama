@@ -16,7 +16,7 @@ function AddItem({ currentListItem, onAddListItem, onChange }) {
         value={currentListItem}
       />
 
-      <IconButton disabled={!currentListItem} onClick={() => onAddListItem()}>
+      <IconButton disabled={!currentListItem} onClick={onAddListItem}>
         <FontAwesomeIcon icon={faPlus} />
       </IconButton>
     </div>
