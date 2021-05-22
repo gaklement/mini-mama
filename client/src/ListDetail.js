@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
+import colors from './colors'
 import ListItem from './ListItem'
 import AddItem from './AddItem'
 import useStyles from 'substyle'
 import IconButton from './IconButton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faCheck, faRedo } from '@fortawesome/free-solid-svg-icons'
 
 function ListDetail({ history, match }) {
   const [currentListItem, setCurrentListItem] = useState('')
   const [currentList, setCurrentList] = useState({})
+  const [showOldItems, setShowOldItems] = useState(false)
   const styles = useStyles(defaultStyle, {})
 
   const fetchList = useCallback(() => {
@@ -57,26 +59,15 @@ function ListDetail({ history, match }) {
 
   return (
     <div>
-      <div {...styles('listTitle')}>{currentList.name}</div>
+      <div {...styles('title')}>{currentList.name}</div>
       <AddItem
         currentListItem={currentListItem}
         onAddListItem={onAddListItem}
         onChange={(event) => setCurrentListItem(event.target.value)}
       />
-
-      {openItems.map((item) => (
-        <ListItem
-          key={item.id}
-          listId={currentList.id}
-          listItem={item}
-          onClick={toggleItem}
-        />
-      ))}
-
-      {closedItems.length > 0 && (
-        <div>
-          <p>Closed</p>
-          {closedItems.map((item) => (
+      {openItems.length > 0 && (
+        <div {...styles('listItemContainer')}>
+          {openItems.map((item) => (
             <ListItem
               key={item.id}
               listId={currentList.id}
@@ -86,30 +77,78 @@ function ListDetail({ history, match }) {
           ))}
         </div>
       )}
-      <IconButton
-        onClick={() => history.push('/')}
-        secondary
-        style={styles('backButton')}
-      >
-        <FontAwesomeIcon icon={faArrowLeft} />
-      </IconButton>
+      {showOldItems && closedItems.length > 0 && (
+        <div {...styles('oldSection')}>
+          <div {...styles('title')}>Erledigt</div>
+          <div {...styles('oldListItemContainer')}>
+            {closedItems.map((item) => (
+              <ListItem
+                key={item.id}
+                listId={currentList.id}
+                listItem={item}
+                onClick={toggleItem}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+      <div {...styles('actions')}>
+        <IconButton
+          onClick={() => history.push('/')}
+          secondary
+          style={styles('backButton')}
+        >
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </IconButton>
+        {closedItems.length > 0 && (
+          <IconButton
+            onClick={() => {
+              setShowOldItems(!showOldItems)
+            }}
+            secondary={!showOldItems}
+          >
+            <FontAwesomeIcon icon={showOldItems ? faCheck : faRedo} />
+          </IconButton>
+        )}
+      </div>
     </div>
   )
 }
 
+const listItemContainer = {
+  backgroundColor: colors.jiggaBlueLight,
+  borderRadius: 3,
+  marginBottom: 10,
+  maxHeight: 310,
+  overflowY: 'scroll',
+  paddingLeft: 5,
+  paddingRight: 5,
+  paddingTop: 10,
+  paddingBottom: 10,
+}
+
 const defaultStyle = {
+  actions: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
   backButton: {
-    position: 'fixed',
     bottom: 20,
   },
   cancelButton: {
     position: 'absolute',
     bottom: 20,
   },
-  listTitle: {
-    display: 'flex',
+  listItemContainer,
+  oldListItemContainer: {
+    ...listItemContainer,
+    backgroundColor: colors.purple,
+  },
+  oldSection: {
+    marginTop: 30,
+  },
+  title: {
     fontSize: 20,
-    justifyContent: 'space-between',
     marginBottom: 15,
   },
 }
