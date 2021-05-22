@@ -163,7 +163,7 @@ const width = 90
 
 const defaultStyle = {
   confirmDeleteHint: {
-    color: colors.darkGrey,
+    color: colors.greyDark,
     fontSize: 16,
     paddingLeft: 20,
     paddingRight: 20,
@@ -209,7 +209,7 @@ const defaultStyle = {
     justifyContent: 'space-between',
   },
   listTitle: {
-    backgroundColor: colors.darkBlue,
+    backgroundColor: colors.blueDark,
     borderRadius: 3,
     flexGrow: 1,
     fontSize: 19,

@@ -6,7 +6,7 @@ function Button({ disabled, children, onClick, secondary, style }) {
   const styles = useStyles(
     defaultStyle,
     { style },
-    { '&secondary': secondary, '&disabled': disabled }
+    { '&disabled': disabled, '&secondary': secondary }
   )
 
   return (
@@ -21,7 +21,7 @@ const defaultStyle = {
   backgroundColor: colors.yellow,
   border: 'none',
   borderRadius: 3,
-  color: colors.darkGrey,
+  color: colors.greyDark,
   display: 'flex',
   fontFamily: 'monospace',
   fontSize: 15,
@@ -35,7 +35,7 @@ const defaultStyle = {
   },
   '&secondary': {
     backgroundColor: colors.grey,
-    color: colors.darkGrey,
+    color: colors.greyDark,
   },
 }
 

@@ -1,7 +1,2 @@
 {"id":"890398","createTime":1621689372401,"name":"Buchladen","items":[],"_id":"U9JuCM1XgZIPTDkv"}
-{"id":"709629","createTime":1621259887972,"name":"Clari wurde geimpft","items":[{"id":"363944","name":"klementinen","doneTime":null,"done":false}],"_id":"ga9zvuxmMvgY01Bl"}
-{"id":"512160","createTime":1621703967686,"name":"Neue Liste","items":[{"id":"699219","name":"Gisen"},{"id":"479046","name":"Jiggen"},{"id":"964985","name":"Claren"},{"id":"382641","name":"Elefanten"}],"_id":"ortp18nqtSdO8XVA"}
-{"id":"171738","createTime":1621689866616,"name":"eine neue Liste","items":[{"id":"903297","name":"Babane"},{"id":"503271","name":"A"},{"id":"467177","name":""}],"_id":"yFhf2WtkDWkZoO2P"}
-{"id":"171738","createTime":1621689866616,"name":"eine neue Liste","items":[{"id":"903297","name":"Babane"},{"id":"503271","name":"A"},{"id":"467177","name":""},{"id":"490945","name":"A"}],"_id":"yFhf2WtkDWkZoO2P"}
-{"id":"171738","createTime":1621689866616,"name":"eine neue Liste","items":[{"id":"903297","name":"Babane"},{"id":"503271","name":"A"},{"id":"467177","name":""},{"id":"490945","name":"A"},{"id":"997528","name":"Sdf"}],"_id":"yFhf2WtkDWkZoO2P"}
-{"$$deleted":true,"_id":"yFhf2WtkDWkZoO2P"}
+{"id":"709629","createTime":1621259887972,"name":"Clari wurde geimpft","items":[{"id":"363944","name":"klementinen","doneTime":null,"done":false},{"id":"334986","name":"Orangen","doneTime":1621705156115,"done":true},{"id":"347352","name":"Asdf"},{"id":"828391","name":"Dfd"},{"id":"399425","name":"Dfa"},{"id":"188117","name":"Asdffds"},{"id":"453507","name":"Sdf"},{"id":"877628","name":"Sdfsdf"},{"id":"810883","name":"Sdf"},{"id":"636927","name":"Gg"}],"_id":"ga9zvuxmMvgY01Bl"}
