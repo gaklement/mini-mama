@@ -158,7 +158,7 @@ function Lists({ history }) {
   )
 }
 
-const height = 20
+const height = 22
 const width = 90
 
 const defaultStyle = {
