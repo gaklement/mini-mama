@@ -10,7 +10,11 @@ function AddItem({ currentListItem, onAddListItem, onChange }) {
     <div {...styles}>
       <Input
         onChange={onChange}
-        onKeyDown={onAddListItem}
+        onKeyDown={({ key }, value) => {
+          if (key === 'Enter' && currentListItem) {
+            onAddListItem(value)
+          }
+        }}
         placeholder="Produkt eingeben"
         style={styles('addItemInput')}
         value={currentListItem}

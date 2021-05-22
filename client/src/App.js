@@ -38,8 +38,7 @@ const defaultStyle = {
     marginBottom: 50,
   },
   logo: {
-    width: '30%',
-    height: '30%',
+    height: 100,
   },
 }
 

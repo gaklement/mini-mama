@@ -7,11 +7,7 @@ function Input({ onChange, onKeyDown, placeholder, style, value }) {
       {...styles}
       type="text"
       onChange={onChange}
-      onKeyDown={({ key }) => {
-        if (key === 'Enter') {
-          onKeyDown(value)
-        }
-      }}
+      onKeyDown={(event) => onKeyDown(event, value)}
       placeholder={placeholder}
       value={value}
     />
