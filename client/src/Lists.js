@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import axios from 'axios'
 import Button from './Button'
 import IconButton from './IconButton'
+import ChangeListName from './ChangeListName'
 import useStyles from 'substyle'
 import colors from './colors'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
 function Lists({ history }) {
   const [fetchedLists, setFetchedLists] = useState([])
-  const [editing, setEditing] = useState(false)
+  const [editingMode, setEditingMode] = useState(false)
+  const [editNameMode, setEditNameMode] = useState(false)
   const [confirmDeleteList, setConfirmDeleteList] = useState(false)
   const [requestDeleteForList, setRequestDeleteForList] = useState({})
+  const [listToEdit, setListToEdit] = useState({})
   const styles = useStyles(defaultStyle, {})
 
   useEffect(() => {
@@ -24,65 +27,101 @@ function Lists({ history }) {
     })
   }
 
+  const updateListName = useCallback(() => {
+    setEditNameMode(false)
+
+    axios
+      .put('/api/v1/list', {
+        listId: listToEdit.id,
+        newName: listToEdit.name,
+      })
+      .then(() => {
+        fetchLists()
+      })
+  }, [listToEdit, setEditNameMode])
+
   return (
     <div>
       <div {...styles('listsTitle')}>Meine Listen</div>
-      <div {...styles('listsContainer')}>
-        {fetchedLists.map((list) => (
-          <div {...styles('listContainer')} key={list.id}>
-            <div
-              {...styles('listTitle')}
+      {editNameMode ? (
+        <ChangeListName
+          newListName={listToEdit.name}
+          onChange={({ target }) => {
+            setListToEdit({ ...listToEdit, name: target.value })
+          }}
+          updateListName={updateListName}
+        />
+      ) : (
+        <div>
+          <div {...styles('listsContainer')}>
+            {fetchedLists.map((list) => (
+              <div {...styles('listContainer')} key={list.id}>
+                <div
+                  {...styles('listTitle')}
+                  onClick={() => {
+                    history.push(`/listDetail/${list.id}`)
+                  }}
+                >
+                  {list.name}
+                </div>
+                {editingMode && (
+                  <div {...styles('editActions')}>
+                    <IconButton
+                      onClick={() => {
+                        setRequestDeleteForList(list)
+                        setConfirmDeleteList(true)
+                      }}
+                      style={styles('deleleList')}
+                    >
+                      <FontAwesomeIcon icon={faTrashAlt} />
+                    </IconButton>
+                    <IconButton
+                      onClick={() => {
+                        setEditNameMode(true)
+                        setListToEdit(list)
+                      }}
+                      style={styles('editName')}
+                    >
+                      <FontAwesomeIcon icon={faPen} />
+                    </IconButton>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div {...styles('createListButton')}>
+            <Button
               onClick={() => {
-                history.push(`/listDetail/${list.id}`)
+                history.push('/create')
               }}
             >
-              {list.name}
-            </div>
-            {editing && (
-              <IconButton
+              Neue Liste
+            </Button>
+          </div>
+          <div {...styles('editMode')}>
+            {editingMode ? (
+              <Button
                 onClick={() => {
-                  setRequestDeleteForList(list)
-                  setConfirmDeleteList(true)
+                  setEditingMode(false)
                 }}
-                style={styles('deleleList')}
+                secondary
               >
-                <FontAwesomeIcon icon={faTrashAlt} />
-              </IconButton>
+                Abbrechen
+              </Button>
+            ) : (
+              <Button
+                onClick={() => {
+                  setEditingMode(true)
+                }}
+                secondary
+              >
+                Bearbeiten
+              </Button>
             )}
           </div>
-        ))}
-      </div>
-
-      <div {...styles('createListButton')}>
-        <Button
-          onClick={() => {
-            history.push('/create')
-          }}
-        >
-          Neue Liste
-        </Button>
-      </div>
-      <div {...styles('editButton')}>
-        {editing ? (
-          <Button
-            onClick={() => {
-              setEditing(false)
-            }}
-            secondary
-          >
-            Abbrechen
-          </Button>
-        ) : (
-          <Button
-            onClick={() => {
-              setEditing(true)
-            }}
-            secondary
-          >
-            Bearbeiten
-          </Button>
-        )}
-      </div>
+        </div>
+      )}
       {confirmDeleteList && (
         <div {...styles('confirmDeleteModal')}>
           <div {...styles('confirmDeleteHint')}>
@@ -100,7 +139,7 @@ function Lists({ history }) {
             </Button>
             <Button
               onClick={() => {
-                setEditing(false)
+                setEditingMode(false)
                 axios
                   .delete(`/api/v1/list?listId=${requestDeleteForList.id}`)
                   .then(() => {
@@ -147,13 +186,18 @@ const defaultStyle = {
   },
   deleleList: {
     backgroundColor: colors.turquoise,
-    minHeight: 38,
   },
-  editButton: {
+  editActions: {
+    display: 'flex',
+  },
+  editMode: {
     bottom: 20,
     position: 'absolute',
     right: 0,
     marginRight: 8,
+  },
+  editName: {
+    marginLeft: 5,
   },
   listsContainer: {
     marginBottom: 20,
@@ -168,7 +212,7 @@ const defaultStyle = {
     backgroundColor: colors.darkBlue,
     borderRadius: 3,
     flexGrow: 1,
-    fontSize: 20,
+    fontSize: 19,
     marginBottom: 5,
     marginRight: 5,
     paddingBottom: 7,
