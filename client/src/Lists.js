@@ -136,6 +136,7 @@ function Lists({ history }) {
               onClick={() => {
                 setRequestDeleteForList({})
                 setConfirmDeleteList(false)
+                setEditingMode(false)
               }}
             >
               Abbrechen
