@@ -11,7 +11,9 @@ function ChangeListName({ newListName = '', onChange, updateListName }) {
     <div {...styles}>
       <Input
         onChange={onChange}
-        onKeyDown={() => newListName && updateListName(newListName)}
+        onKeyDown={({ key }) =>
+          key === 'Enter' && newListName && updateListName(newListName)
+        }
         style={styles('input')}
         value={newListName}
       />
