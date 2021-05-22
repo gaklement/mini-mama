@@ -25,6 +25,7 @@ function CreateNewList({ history }) {
           }
         }}
         placeholder="Name der Liste"
+        style={styles('nameInput')}
         value={name}
       />
       <div {...styles('actions')}>
@@ -61,6 +62,9 @@ const defaultStyle = {
   },
   confirm: {
     width: '50%',
+  },
+  nameInput: {
+    height: 36,
   },
 }
 
