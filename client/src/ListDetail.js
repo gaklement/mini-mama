@@ -86,7 +86,13 @@ function ListDetail({ history, match }) {
                 key={item.id}
                 listId={currentList.id}
                 listItem={item}
-                onClick={toggleItem}
+                onClick={(listItem) => {
+                  // toggling the last item will make the list empty
+                  if (closedItems.length === 1) {
+                    setShowOldItems(false)
+                  }
+                  toggleItem(listItem)
+                }}
               />
             ))}
           </div>

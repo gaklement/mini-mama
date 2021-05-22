@@ -49,7 +49,10 @@ function Lists({ history }) {
           onChange={({ target }) => {
             setListToEdit({ ...listToEdit, name: target.value })
           }}
-          updateListName={updateListName}
+          updateListName={(newListName) => {
+            setEditingMode(false)
+            updateListName(newListName)
+          }}
         />
       ) : (
         <div>
@@ -158,7 +161,7 @@ function Lists({ history }) {
   )
 }
 
-const height = 20
+const height = 22
 const width = 90
 
 const defaultStyle = {
