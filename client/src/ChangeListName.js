@@ -4,7 +4,7 @@ import useStyles from 'substyle'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
-function ChangeListName({ newListName, onChange, updateListName }) {
+function ChangeListName({ newListName = '', onChange, updateListName }) {
   const styles = useStyles(defaultStyle, {})
 
   return (
