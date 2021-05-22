@@ -11,7 +11,7 @@ function AddItem({ currentListItem, onAddListItem, onChange }) {
       <Input
         onChange={onChange}
         onKeyDown={({ key }, value) => {
-          if (key === 'Enter') {
+          if (key === 'Enter' && currentListItem) {
             onAddListItem(value)
           }
         }}
