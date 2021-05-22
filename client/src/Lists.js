@@ -49,7 +49,10 @@ function Lists({ history }) {
           onChange={({ target }) => {
             setListToEdit({ ...listToEdit, name: target.value })
           }}
-          updateListName={updateListName}
+          updateListName={(newListName) => {
+            setEditingMode(false)
+            updateListName(newListName)
+          }}
         />
       ) : (
         <div>
