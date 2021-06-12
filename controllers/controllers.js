@@ -19,23 +19,14 @@ const list = (req, res, next) => {
       await client.connect()
       const mongoDatabase = client.db()
 
-      // use list here instead
-      const lists = mongoDatabase.collection('lists')
-
-      const query = { name: 'A database list' }
-      const databaseList = await lists.findOne(query)
-      console.log(databaseList)
-
-      //
-      // noch nciht gemacht
       // get a list
       if (req.method === 'GET') {
-        console.log('== helllo i run')
-        database.find({ id: req.query.listId }, (_, list) => {
-          res.status(200).json({
-            ...list[0],
-          })
-        })
+        const lists = await mongoDatabase
+          .collection('lists')
+          .find({ id: req.query.listId })
+          .toArray()
+
+        res.status(200).json({ ...lists[0] })
       }
       //
     } finally {
@@ -131,19 +122,6 @@ const lists = (req, res, next) => {
           }
         )
 
-        // database.update(
-        //   { id: req.body.id },
-        //   {
-        //     $push: {
-        //       items: {
-        //         id: Math.floor(100000 + Math.random() * 900000).toString(),
-        //         name: req.body.item,
-        //       },
-        //     },
-        //   },
-        //   {}
-        // )
-
         res.status(200).json({})
       }
     } finally {
@@ -152,54 +130,6 @@ const lists = (req, res, next) => {
   }
 
   run().catch(console.dir)
-
-  // // get all lists
-  // if (req.method === 'GET') {
-  //   database.find({}, (_, lists) => {
-  //     const sortedLists = lists.sort(
-  //       (listA, listB) =>
-  //         new Date(listA.createTime) - new Date(listB.createTime)
-  //     )
-
-  //     res.status(200).json({
-  //       lists: sortedLists,
-  //     })
-  //   })
-  // }
-
-  // add new list
-  // if (req.method === 'POST') {
-  //   const listId = Math.floor(100000 + Math.random() * 900000).toString()
-
-  //   database.insert({
-  //     id: listId,
-  //     createTime: Date.now(),
-  //     name: req.body.name,
-  //     items: [],
-  //   })
-
-  //   res.status(200).json({
-  //     listId,
-  //   })
-  // }
-
-  // // add item to list
-  // if (req.method === 'PUT') {
-  //   database.update(
-  //     { id: req.body.id },
-  //     {
-  //       $push: {
-  //         items: {
-  //           id: Math.floor(100000 + Math.random() * 900000).toString(),
-  //           name: req.body.item,
-  //         },
-  //       },
-  //     },
-  //     {}
-  //   )
-
-  //   res.status(200).json({})
-  // }
 }
 
 const item = (req, res, next) => {
