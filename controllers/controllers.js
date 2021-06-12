@@ -28,7 +28,20 @@ const list = (req, res, next) => {
 
         res.status(200).json({ ...lists[0] })
       }
-      //
+
+      // update list name
+      if (req.method === 'PUT') {
+        await mongoDatabase.collection('lists').updateOne(
+          { id: req.body.listId },
+          {
+            $set: {
+              name: req.body.newName,
+            },
+          }
+        )
+
+        res.status(200).json({})
+      }
     } finally {
       console.log('==but i also close')
       // await client.close()
@@ -37,28 +50,19 @@ const list = (req, res, next) => {
 
   run().catch(console.dir)
 
-  // // get a list
-  // if (req.method === 'GET') {
-  //   database.find({ id: req.query.listId }, (_, list) => {
-  //     res.status(200).json({
-  //       ...list[0],
-  //     })
-  //   })
+  // // update list name
+  // if (req.method === 'PUT') {
+  //   database.update(
+  //     { id: req.body.listId },
+  //     {
+  //       $set: {
+  //         name: req.body.newName,
+  //       },
+  //     }
+  //   )
+
+  //   res.status(200).json({})
   // }
-
-  // update list name
-  if (req.method === 'PUT') {
-    database.update(
-      { id: req.body.listId },
-      {
-        $set: {
-          name: req.body.newName,
-        },
-      }
-    )
-
-    res.status(200).json({})
-  }
 
   // delete a list
   if (req.method === 'DELETE') {
