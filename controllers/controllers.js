@@ -1,8 +1,4 @@
-const Datastore = require('nedb')
 const { MongoClient } = require('mongodb')
-
-const database = new Datastore('./database.db')
-database.loadDatabase()
 
 const user = 'Gisa'
 const password = 'IReallyLikeFood'
@@ -60,13 +56,6 @@ const list = (req, res, next) => {
   }
 
   run().catch(console.dir)
-
-  // // delete a list
-  // if (req.method === 'DELETE') {
-  //   database.remove({ id: req.query.listId }, {}, () => {
-  //     res.status(200).json({})
-  //   })
-  // }
 }
 
 const lists = (req, res, next) => {
