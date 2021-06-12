@@ -16,6 +16,10 @@ const client = new MongoClient(uri, {
 const list = (req, res, next) => {
   async function run() {
     try {
+      const client = new MongoClient(uri, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      })
       await client.connect()
       const mongoDatabase = client.db()
 
@@ -50,20 +54,6 @@ const list = (req, res, next) => {
 
   run().catch(console.dir)
 
-  // // update list name
-  // if (req.method === 'PUT') {
-  //   database.update(
-  //     { id: req.body.listId },
-  //     {
-  //       $set: {
-  //         name: req.body.newName,
-  //       },
-  //     }
-  //   )
-
-  //   res.status(200).json({})
-  // }
-
   // delete a list
   if (req.method === 'DELETE') {
     database.remove({ id: req.query.listId }, {}, () => {
@@ -75,6 +65,10 @@ const list = (req, res, next) => {
 const lists = (req, res, next) => {
   async function run() {
     try {
+      const client = new MongoClient(uri, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      })
       await client.connect()
       const mongoDatabase = client.db()
 
@@ -113,7 +107,6 @@ const lists = (req, res, next) => {
 
       // add item to list
       if (req.method === 'PUT') {
-        console.log('==req body id', req.body.id)
         mongoDatabase.collection('lists').updateOne(
           { id: req.body.id },
           {
@@ -137,31 +130,75 @@ const lists = (req, res, next) => {
 }
 
 const item = (req, res, next) => {
-  // toggle item from done/undone
-  if (req.method === 'PUT') {
-    database.find({ id: req.body.listId }, (_, list) => {
-      // find item in the list's items
-      // update it and overwrite all items
-      const updatedItems = list[0].items.map((item) =>
-        item.id === req.body.itemId
-          ? {
-              ...item,
-              doneTime: item.done ? null : Date.now(),
-              done: !item.done,
-            }
-          : item
-      )
+  async function run() {
+    try {
+      const client = new MongoClient(uri, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      })
+      await client.connect()
+      const mongoDatabase = client.db()
 
-      database.update(
-        { id: req.body.listId },
-        {
-          $set: { items: updatedItems },
-        }
-      )
-    })
+      // toggle item from done/undone
+      if (req.method === 'PUT') {
+        const list = await mongoDatabase
+          .collection('lists')
+          .find({ id: req.body.listId })
+          .toArray()
 
-    res.status(200).json({})
+        console.log('3==sadf', list)
+
+        // find item in the list's items
+        // update it and overwrite all items
+        const updatedItems = list[0].items.map((item) =>
+          item.id === req.body.itemId
+            ? {
+                ...item,
+                doneTime: item.done ? null : Date.now(),
+                done: !item.done,
+              }
+            : item
+        )
+
+        await mongoDatabase.collection('lists').updateOne(
+          { id: req.body.listId },
+          {
+            $set: { items: updatedItems },
+          }
+        )
+
+        res.status(200).json({})
+      }
+    } finally {
+    }
   }
+
+  run().catch(console.dir)
+  // // toggle item from done/undone
+  // if (req.method === 'PUT') {
+  //   database.find({ id: req.body.listId }, (_, list) => {
+  //     // find item in the list's items
+  //     // update it and overwrite all items
+  //     const updatedItems = list[0].items.map((item) =>
+  //       item.id === req.body.itemId
+  //         ? {
+  //             ...item,
+  //             doneTime: item.done ? null : Date.now(),
+  //             done: !item.done,
+  //           }
+  //         : item
+  //     )
+
+  //     database.update(
+  //       { id: req.body.listId },
+  //       {
+  //         $set: { items: updatedItems },
+  //       }
+  //     )
+  //   })
+
+  //   res.status(200).json({})
+  // }
 }
 
 module.exports.lists = lists
