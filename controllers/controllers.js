@@ -4,18 +4,15 @@ const user = 'Gisa'
 const password = 'IReallyLikeFood'
 
 const uri = `mongodb+srv://${user}:${password}@thenextcluster.gjiq0.mongodb.net/i-like-food?retryWrites=true&w=majority`
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
 
 const list = (req, res, next) => {
   async function run() {
+    const client = new MongoClient(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+
     try {
-      const client = new MongoClient(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      })
       await client.connect()
       const mongoDatabase = client.db()
 
@@ -60,11 +57,11 @@ const list = (req, res, next) => {
 
 const lists = (req, res, next) => {
   async function run() {
+    const client = new MongoClient(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
     try {
-      const client = new MongoClient(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      })
       await client.connect()
       const mongoDatabase = client.db()
 
@@ -127,11 +124,11 @@ const lists = (req, res, next) => {
 
 const item = (req, res, next) => {
   async function run() {
+    const client = new MongoClient(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
     try {
-      const client = new MongoClient(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      })
       await client.connect()
       const mongoDatabase = client.db()
 
@@ -181,3 +178,4 @@ module.exports.item = item
 // id => _id
 // clean up
 // add loading messages in the client
+// test on mobile
