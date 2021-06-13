@@ -181,4 +181,3 @@ module.exports.item = item
 // id => _id
 // clean up
 // add loading messages in the client
-// test on mobile
