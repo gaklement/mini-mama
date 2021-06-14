@@ -1,23 +1,10 @@
 const { MongoClient } = require('mongodb')
-
-const user = 'Gisa'
-const password = 'IReallyLikeFood'
-
-const uri = `mongodb+srv://${user}:${password}@thenextcluster.gjiq0.mongodb.net/i-like-food?retryWrites=true&w=majority`
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+const mongoUtil = require('../mongoUtil')
 
 const list = (req, res, next) => {
   async function run() {
     try {
-      const client = new MongoClient(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      })
-      await client.connect()
-      const mongoDatabase = client.db()
+      const mongoDatabase = mongoUtil.getDatabase()
 
       // get a list
       if (req.method === 'GET') {
@@ -51,7 +38,7 @@ const list = (req, res, next) => {
         res.status(200).json({})
       }
     } finally {
-      await client.close()
+      // await client.close()
     }
   }
 
@@ -61,12 +48,7 @@ const list = (req, res, next) => {
 const lists = (req, res, next) => {
   async function run() {
     try {
-      const client = new MongoClient(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      })
-      await client.connect()
-      const mongoDatabase = client.db()
+      const mongoDatabase = mongoUtil.getDatabase()
 
       // add new list
       if (req.method === 'POST') {
@@ -118,7 +100,7 @@ const lists = (req, res, next) => {
         res.status(200).json({})
       }
     } finally {
-      await client.close()
+      // await client.close()
     }
   }
 
@@ -128,12 +110,7 @@ const lists = (req, res, next) => {
 const item = (req, res, next) => {
   async function run() {
     try {
-      const client = new MongoClient(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      })
-      await client.connect()
-      const mongoDatabase = client.db()
+      const mongoDatabase = mongoUtil.getDatabase()
 
       // toggle item from done/undone
       if (req.method === 'PUT') {
@@ -164,7 +141,22 @@ const item = (req, res, next) => {
         res.status(200).json({})
       }
     } finally {
-      await client.close()
+      // await client.close()
+    }
+  }
+
+  run().catch(console.dir)
+}
+
+const out = (req, res, next) => {
+  async function run() {
+    try {
+      // toggle item from done/undone
+      if (req.method === 'GET') {
+        console.log('==hello')
+      }
+    } finally {
+      // await client.close()
     }
   }
 
@@ -175,7 +167,6 @@ module.exports.lists = lists
 module.exports.list = list
 module.exports.item = item
 
-// keep the database connection open
 // maybe put all controller types (lists, list, item) into one giant module or maybe not
 // close db connection
 // id => _id
