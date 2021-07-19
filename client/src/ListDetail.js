@@ -81,20 +81,22 @@ function ListDetail({ history, match }) {
         <div {...styles('oldSection')}>
           <div {...styles('title')}>Erledigt</div>
           <div {...styles('oldListItemContainer')}>
-            {closedItems.map((item) => (
-              <ListItem
-                key={item.id}
-                listId={currentList.id}
-                listItem={item}
-                onClick={(listItem) => {
-                  // toggling the last item will make the list empty
-                  if (closedItems.length === 1) {
-                    setShowOldItems(false)
-                  }
-                  toggleItem(listItem)
-                }}
-              />
-            ))}
+            {closedItems
+              .sort((first, second) => (first.name > second.name ? 1 : -1))
+              .map((item) => (
+                <ListItem
+                  key={item.id}
+                  listId={currentList.id}
+                  listItem={item}
+                  onClick={(listItem) => {
+                    // toggling the last item will make the list empty
+                    if (closedItems.length === 1) {
+                      setShowOldItems(false)
+                    }
+                    toggleItem(listItem)
+                  }}
+                />
+              ))}
           </div>
         </div>
       )}
