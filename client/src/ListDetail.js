@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
+import { faArrowLeft, faCheck, faRedo } from '@fortawesome/free-solid-svg-icons'
+
+import AddItem from './AddItem'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import IconButton from './IconButton'
+import ListItem from './ListItem'
 import axios from 'axios'
 import colors from './colors'
-import ListItem from './ListItem'
-import AddItem from './AddItem'
 import useStyles from 'substyle'
-import IconButton from './IconButton'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft, faCheck, faRedo } from '@fortawesome/free-solid-svg-icons'
 
 function ListDetail({ history, match }) {
   const [currentListItem, setCurrentListItem] = useState('')
@@ -72,7 +73,7 @@ function ListDetail({ history, match }) {
               key={item.id}
               listId={currentList.id}
               listItem={item}
-              onClick={toggleItem}
+              onToggleItem={toggleItem}
             />
           ))}
         </div>
@@ -88,12 +89,23 @@ function ListDetail({ history, match }) {
                   key={item.id}
                   listId={currentList.id}
                   listItem={item}
-                  onClick={(listItem) => {
+                  onToggleItem={(listItem) => {
                     // toggling the last item will make the list empty
                     if (closedItems.length === 1) {
                       setShowOldItems(false)
                     }
                     toggleItem(listItem)
+                  }}
+                  onDeleteItem={(event) => {
+                    axios
+                      .delete(
+                        `/api/v1/item?id=${item.id}&listId=${currentList.id}`
+                      )
+                      .then(() => {
+                        fetchList()
+                      })
+
+                    event.stopPropagation()
                   }}
                 />
               ))}

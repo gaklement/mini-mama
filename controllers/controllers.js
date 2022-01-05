@@ -1,7 +1,6 @@
-const { MongoClient } = require('mongodb')
 const mongoUtil = require('../mongoUtil')
 
-const list = (req, res, next) => {
+const list = (req, res) => {
   async function run() {
     try {
       const mongoDatabase = mongoUtil.getDatabase()
@@ -45,7 +44,7 @@ const list = (req, res, next) => {
   run().catch(console.dir)
 }
 
-const lists = (req, res, next) => {
+const lists = (req, res) => {
   async function run() {
     try {
       const mongoDatabase = mongoUtil.getDatabase()
@@ -107,7 +106,7 @@ const lists = (req, res, next) => {
   run().catch(console.dir)
 }
 
-const item = (req, res, next) => {
+const item = (req, res) => {
   async function run() {
     try {
       const mongoDatabase = mongoUtil.getDatabase()
@@ -140,20 +139,26 @@ const item = (req, res, next) => {
 
         res.status(200).json({})
       }
-    } finally {
-      // await client.close()
-    }
-  }
 
-  run().catch(console.dir)
-}
+      if (req.method === 'DELETE') {
+        const listId = req.query.listId
+        const listItemId = req.query.id
+        console.log('hallo?')
 
-const out = (req, res, next) => {
-  async function run() {
-    try {
-      // toggle item from done/undone
-      if (req.method === 'GET') {
-        console.log('==hello')
+        const list = await mongoDatabase
+          .collection('lists')
+          .find({ id: listId })
+          .toArray()
+
+        const updatedItems = list[0].items.filter(
+          (item) => item.id !== listItemId
+        )
+
+        await mongoDatabase
+          .collection('lists')
+          .updateOne({ id: listId }, { $set: { items: updatedItems } })
+
+        res.status(200).json({})
       }
     } finally {
       // await client.close()

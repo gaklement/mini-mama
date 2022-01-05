@@ -1,19 +1,26 @@
-import React from 'react'
-import useStyles from 'substyle'
-import IconButton from './IconButton'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRedo } from '@fortawesome/free-solid-svg-icons'
+import { faRedo, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
-function ListItem({ listItem, onClick }) {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import IconButton from './IconButton'
+import React from 'react'
+import colors from './colors'
+import useStyles from 'substyle'
+
+function ListItem({ listId, listItem, onDeleteItem, onToggleItem }) {
   const styles = useStyles(defaultStyle, {})
 
   return (
-    <div {...styles} onClick={() => onClick(listItem)}>
+    <div {...styles} onClick={() => onToggleItem(listItem)}>
       {listItem.name}
       {listItem.done && (
-        <IconButton small>
-          <FontAwesomeIcon icon={faRedo} />
-        </IconButton>
+        <div {...styles('buttonContainer')}>
+          <IconButton {...styles('deleteItem')} onClick={onDeleteItem} small>
+            <FontAwesomeIcon icon={faTrashAlt} />
+          </IconButton>
+          <IconButton small>
+            <FontAwesomeIcon icon={faRedo} />
+          </IconButton>
+        </div>
       )}
     </div>
   )
@@ -26,6 +33,15 @@ const defaultStyle = {
   justifyContent: 'space-between',
   marginBottom: 10,
   paddingBottom: 5,
+
+  buttonContainer: {
+    display: 'flex',
+  },
+
+  deleteItem: {
+    backgroundColor: colors.turquoise,
+    marginRight: 5,
+  },
 }
 
 export default ListItem

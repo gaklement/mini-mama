@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import axios from 'axios'
-import Button from './Button'
-import IconButton from './IconButton'
-import ChangeListName from './ChangeListName'
-import useStyles from 'substyle'
-import colors from './colors'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+
+import Button from './Button'
+import ChangeListName from './ChangeListName'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import IconButton from './IconButton'
+import axios from 'axios'
+import colors from './colors'
+import useStyles from 'substyle'
 
 function Lists({ history }) {
   const [fetchedLists, setFetchedLists] = useState([])
