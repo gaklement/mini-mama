@@ -8,8 +8,8 @@ const mongoUtil = require('./mongoUtil')
 // Create a new express application named 'app'
 const app = express()
 
-// Set our backend port to be either an environment variable or port 5000
-const port = process.env.PORT || 5000
+// Set our backend port to be either an environment variable or port 6000
+const port = process.env.PORT || 6000
 
 mongoUtil.connectToServer((error) => {
   if (error) {
