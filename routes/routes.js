@@ -11,5 +11,6 @@ router.post('/lists', controllers.lists)
 router.put('/lists', controllers.lists)
 
 router.put('/item', controllers.item)
+router.delete('/item', controllers.item)
 
 module.exports = router
