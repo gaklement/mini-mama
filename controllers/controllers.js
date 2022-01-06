@@ -143,7 +143,6 @@ const item = (req, res) => {
       if (req.method === 'DELETE') {
         const listId = req.query.listId
         const listItemId = req.query.id
-        console.log('hallo?')
 
         const list = await mongoDatabase
           .collection('lists')
