@@ -63,9 +63,10 @@ function ListDetail({ history, match }) {
       <div {...styles('title')}>{currentList.name}</div>
       <AddItem
         currentItemName={currentItemName}
+        currentList={currentList}
         onAddListItem={onAddListItem}
         onChange={(event) => setCurrentItemName(event.target.value)}
-        currentList={currentList}
+        selectSuggestionAsValue={(suggestion) => setCurrentItemName(suggestion)}
       />
       {openItems.length > 0 && (
         <div {...styles('listItemContainer')}>

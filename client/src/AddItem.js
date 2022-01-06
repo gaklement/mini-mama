@@ -5,7 +5,13 @@ import Suggestions from './Suggestions'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import useStyles from 'substyle'
 
-function AddItem({ currentList, currentItemName, onAddListItem, onChange }) {
+function AddItem({
+  currentList,
+  currentItemName,
+  onAddListItem,
+  onChange,
+  selectSuggestionAsValue,
+}) {
   const styles = useStyles(defaultStyle, {})
   return (
     <div {...styles}>
@@ -25,6 +31,7 @@ function AddItem({ currentList, currentItemName, onAddListItem, onChange }) {
           <Suggestions
             currentItemName={currentItemName}
             currentList={currentList}
+            selectSuggestionAsValue={selectSuggestionAsValue}
           />
         )}
       </div>

@@ -1,6 +1,10 @@
 import Suggestion from './Suggestion'
 
-function Suggestions({ currentItemName, currentList }) {
+function Suggestions({
+  currentItemName,
+  currentList,
+  selectSuggestionAsValue,
+}) {
   const matches = currentList.items.filter((item) =>
     item.name.toLowerCase().startsWith(currentItemName.toLowerCase())
   )
@@ -8,7 +12,11 @@ function Suggestions({ currentItemName, currentList }) {
   return (
     <div>
       {matches.map((itemMatch) => (
-        <Suggestion key={itemMatch.id} suggestion={itemMatch} />
+        <Suggestion
+          key={itemMatch.id}
+          selectSuggestionAsValue={selectSuggestionAsValue}
+          suggestion={itemMatch}
+        />
       ))}
     </div>
   )
