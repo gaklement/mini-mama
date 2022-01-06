@@ -1,25 +1,39 @@
-import Input from './Input'
-import IconButton from './IconButton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import IconButton from './IconButton'
+import Input from './Input'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import useStyles from 'substyle'
 
-function AddItem({ currentListItem, onAddListItem, onChange }) {
+function AddItem({ currentList, currentListItem, onAddListItem, onChange }) {
   const styles = useStyles(defaultStyle, {})
   return (
     <div {...styles}>
-      <Input
-        onChange={onChange}
-        onKeyDown={({ key }, value) => {
-          if (key === 'Enter' && currentListItem) {
-            onAddListItem(value)
-          }
-        }}
-        placeholder="Produkt eingeben"
-        style={styles('addItemInput')}
-        value={currentListItem}
-      />
-
+      <div>
+        <Input
+          onChange={onChange}
+          onKeyDown={({ key }, value) => {
+            if (key === 'Enter' && currentListItem) {
+              onAddListItem(value)
+            }
+          }}
+          placeholder="Produkt eingeben"
+          style={styles('addItemInput')}
+          value={currentListItem}
+        />
+        {currentListItem && (
+          <div>
+            {currentList.items
+              .filter((item) => {
+                return item.name
+                  .toLowerCase()
+                  .startsWith(currentListItem.toLowerCase())
+              })
+              .map((itemMatch) => {
+                return <div key={itemMatch.id}>{itemMatch.name}</div>
+              })}
+          </div>
+        )}
+      </div>
       <IconButton disabled={!currentListItem} onClick={onAddListItem}>
         <FontAwesomeIcon icon={faPlus} />
       </IconButton>

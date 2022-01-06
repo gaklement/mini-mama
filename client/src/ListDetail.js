@@ -65,6 +65,7 @@ function ListDetail({ history, match }) {
         currentListItem={currentListItem}
         onAddListItem={onAddListItem}
         onChange={(event) => setCurrentListItem(event.target.value)}
+        currentList={currentList}
       />
       {openItems.length > 0 && (
         <div {...styles('listItemContainer')}>
