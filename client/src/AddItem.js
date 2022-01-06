@@ -18,7 +18,7 @@ function AddItem({
   const styles = useStyles(defaultStyle, {})
   return (
     <div {...styles}>
-      <div>
+      <div {...styles('inputContainer')}>
         <Input
           onChange={(event) => {
             onChange(event)
@@ -33,20 +33,21 @@ function AddItem({
           style={styles('addItemInput')}
           value={currentItemName}
         />
-        {currentItemName && showSuggestions && (
-          <Suggestions
-            currentItemName={currentItemName}
-            currentList={currentList}
-            selectSuggestionAsValue={(suggestionName) => {
-              selectSuggestionAsValue(suggestionName)
-              setShowSuggestions(false)
-            }}
-          />
-        )}
+
+        <IconButton disabled={!currentItemName} onClick={onAddListItem}>
+          <FontAwesomeIcon icon={faPlus} />
+        </IconButton>
       </div>
-      <IconButton disabled={!currentItemName} onClick={onAddListItem}>
-        <FontAwesomeIcon icon={faPlus} />
-      </IconButton>
+      {currentItemName && showSuggestions && (
+        <Suggestions
+          currentItemName={currentItemName}
+          currentList={currentList}
+          selectSuggestionAsValue={(suggestionName) => {
+            selectSuggestionAsValue(suggestionName)
+            setShowSuggestions(false)
+          }}
+        />
+      )}
     </div>
   )
 }
@@ -54,9 +55,16 @@ function AddItem({
 const defaultStyle = {
   display: 'flex',
   marginBottom: 20,
+  flexDirection: 'column',
+
   addItemInput: {
     flexGrow: 1,
     marginRight: 5,
+  },
+
+  inputContainer: {
+    display: 'flex',
+    width: '100%',
   },
 }
 

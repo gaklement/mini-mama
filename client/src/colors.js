@@ -10,6 +10,7 @@ const colors = {
   greyDisabled: '#969696',
   jiggaBlue: '#1D394D',
   jiggaBlueLight: '#326082',
+  lightgrey: '#efefef',
   purple: '#7d7aa2',
   salmon: '#ffc1a7',
   turquoise: '#6cc2bd',
@@ -17,4 +18,3 @@ const colors = {
 }
 
 export default colors
-// #328259 green
