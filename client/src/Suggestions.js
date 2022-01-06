@@ -1,15 +1,15 @@
+import Suggestion from './Suggestion'
+
 function Suggestions({ currentItemName, currentList }) {
+  const matches = currentList.items.filter((item) =>
+    item.name.toLowerCase().startsWith(currentItemName.toLowerCase())
+  )
+
   return (
     <div>
-      {currentList.items
-        .filter((item) => {
-          return item.name
-            .toLowerCase()
-            .startsWith(currentItemName.toLowerCase())
-        })
-        .map((itemMatch) => {
-          return <div key={itemMatch.id}>{itemMatch.name}</div>
-        })}
+      {matches.map((itemMatch) => (
+        <Suggestion key={itemMatch.id} suggestion={itemMatch} />
+      ))}
     </div>
   )
 }
