@@ -4,7 +4,7 @@ import Input from './Input'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import useStyles from 'substyle'
 
-function AddItem({ currentList, currentListItem, onAddListItem, onChange }) {
+function AddItem({ currentList, currentItemName, onAddListItem, onChange }) {
   const styles = useStyles(defaultStyle, {})
   return (
     <div {...styles}>
@@ -12,21 +12,21 @@ function AddItem({ currentList, currentListItem, onAddListItem, onChange }) {
         <Input
           onChange={onChange}
           onKeyDown={({ key }, value) => {
-            if (key === 'Enter' && currentListItem) {
+            if (key === 'Enter' && currentItemName) {
               onAddListItem(value)
             }
           }}
           placeholder="Produkt eingeben"
           style={styles('addItemInput')}
-          value={currentListItem}
+          value={currentItemName}
         />
-        {currentListItem && (
+        {currentItemName && (
           <div>
             {currentList.items
               .filter((item) => {
                 return item.name
                   .toLowerCase()
-                  .startsWith(currentListItem.toLowerCase())
+                  .startsWith(currentItemName.toLowerCase())
               })
               .map((itemMatch) => {
                 return <div key={itemMatch.id}>{itemMatch.name}</div>
@@ -34,7 +34,7 @@ function AddItem({ currentList, currentListItem, onAddListItem, onChange }) {
           </div>
         )}
       </div>
-      <IconButton disabled={!currentListItem} onClick={onAddListItem}>
+      <IconButton disabled={!currentItemName} onClick={onAddListItem}>
         <FontAwesomeIcon icon={faPlus} />
       </IconButton>
     </div>

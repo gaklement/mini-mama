@@ -10,7 +10,7 @@ import colors from './colors'
 import useStyles from 'substyle'
 
 function ListDetail({ history, match }) {
-  const [currentListItem, setCurrentListItem] = useState('')
+  const [currentItemName, setCurrentItemName] = useState('')
   const [currentList, setCurrentList] = useState({})
   const [showOldItems, setShowOldItems] = useState(false)
   const styles = useStyles(defaultStyle, {})
@@ -24,9 +24,9 @@ function ListDetail({ history, match }) {
   useEffect(() => fetchList(), [fetchList])
 
   const onAddListItem = useCallback(() => {
-    const capitalizedListItem = `${currentListItem
+    const capitalizedListItem = `${currentItemName
       .charAt(0)
-      .toUpperCase()}${currentListItem.slice(1)}`
+      .toUpperCase()}${currentItemName.slice(1)}`
 
     axios
       .put('/api/v1/lists', {
@@ -35,8 +35,8 @@ function ListDetail({ history, match }) {
       })
       .then(() => fetchList())
 
-    setCurrentListItem('')
-  }, [currentListItem, fetchList, match.params.listId])
+    setCurrentItemName('')
+  }, [currentItemName, fetchList, match.params.listId])
 
   const toggleItem = useCallback(
     (listItem) => {
@@ -62,9 +62,9 @@ function ListDetail({ history, match }) {
     <div>
       <div {...styles('title')}>{currentList.name}</div>
       <AddItem
-        currentListItem={currentListItem}
+        currentItemName={currentItemName}
         onAddListItem={onAddListItem}
-        onChange={(event) => setCurrentListItem(event.target.value)}
+        onChange={(event) => setCurrentItemName(event.target.value)}
         currentList={currentList}
       />
       {openItems.length > 0 && (
