@@ -29,6 +29,7 @@ function AddItem({
               onAddListItem(value)
             }
           }}
+          onBlur={() => setShowSuggestions(false)}
           placeholder="Produkt eingeben"
           style={styles('addItemInput')}
           value={currentItemName}

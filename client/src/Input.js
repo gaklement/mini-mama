@@ -1,11 +1,12 @@
 import useStyles from 'substyle'
 
-function Input({ onChange, onKeyDown, placeholder, style, value }) {
+function Input({ onBlur, onChange, onKeyDown, placeholder, style, value }) {
   const styles = useStyles(defaultStyle, { style })
   return (
     <input
       {...styles}
       type="text"
+      onBlur={onBlur}
       onChange={onChange}
       onKeyDown={(event) => onKeyDown(event, value)}
       placeholder={placeholder}
