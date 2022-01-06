@@ -3,6 +3,7 @@ import IconButton from './IconButton'
 import Input from './Input'
 import Suggestions from './Suggestions'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { useState } from 'react'
 import useStyles from 'substyle'
 
 function AddItem({
@@ -12,12 +13,17 @@ function AddItem({
   onChange,
   selectSuggestionAsValue,
 }) {
+  const [showSuggestions, setShowSuggestions] = useState(false)
+
   const styles = useStyles(defaultStyle, {})
   return (
     <div {...styles}>
       <div>
         <Input
-          onChange={onChange}
+          onChange={(event) => {
+            onChange(event)
+            setShowSuggestions(true)
+          }}
           onKeyDown={({ key }, value) => {
             if (key === 'Enter' && currentItemName) {
               onAddListItem(value)
@@ -27,11 +33,14 @@ function AddItem({
           style={styles('addItemInput')}
           value={currentItemName}
         />
-        {currentItemName && (
+        {currentItemName && showSuggestions && (
           <Suggestions
             currentItemName={currentItemName}
             currentList={currentList}
-            selectSuggestionAsValue={selectSuggestionAsValue}
+            selectSuggestionAsValue={(suggestionName) => {
+              selectSuggestionAsValue(suggestionName)
+              setShowSuggestions(false)
+            }}
           />
         )}
       </div>
