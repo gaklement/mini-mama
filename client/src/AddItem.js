@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import IconButton from './IconButton'
 import Input from './Input'
+import Suggestions from './Suggestions'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import useStyles from 'substyle'
 
@@ -21,17 +22,10 @@ function AddItem({ currentList, currentItemName, onAddListItem, onChange }) {
           value={currentItemName}
         />
         {currentItemName && (
-          <div>
-            {currentList.items
-              .filter((item) => {
-                return item.name
-                  .toLowerCase()
-                  .startsWith(currentItemName.toLowerCase())
-              })
-              .map((itemMatch) => {
-                return <div key={itemMatch.id}>{itemMatch.name}</div>
-              })}
-          </div>
+          <Suggestions
+            currentItemName={currentItemName}
+            currentList={currentList}
+          />
         )}
       </div>
       <IconButton disabled={!currentItemName} onClick={onAddListItem}>
