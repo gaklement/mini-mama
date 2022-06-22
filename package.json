@@ -1,5 +1,5 @@
 {
-  "name": "i-like-food",
+  "name": "mini-mama",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gaklement/i-like-food.git"
+    "url": "git+https://github.com/gaklement/mini-mama.git" 
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/gaklement/i-like-food/issues"
+    "url": "https://github.com/gaklement/mini-mama/issues"
   },
-  "homepage": "https://github.com/gaklement/i-like-food#readme",
+  "homepage": "https://github.com/gaklement/mini-mama#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "concurrently": "^6.0.0",

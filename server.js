@@ -57,16 +57,3 @@ mongoUtil.connectToServer((error) => {
   // Configure our server to listen on the port defined by our port variable
   app.listen(port, () => console.log(`BACK_END_SERVICE_PORT: ${port}`))
 })
-
-process.on('SIGINT', () => {
-  console.log('==gisa sagt hallo')
-})
-process.on('exit', () => {
-  console.log('==gisa sagt goodbye')
-})
-process.on('beforeExit', () => {
-  console.log('==gisa sagt beforeexxit')
-})
-process.on('disconnet', () => {
-  console.log('==gisa sagt diconnecgt')
-})
