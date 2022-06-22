@@ -70,14 +70,16 @@ function ListDetail({ history, match }) {
       />
       {openItems.length > 0 && (
         <div {...styles('listItemContainer')}>
-          {openItems.map((item) => (
-            <ListItem
-              key={item.id}
-              listId={currentList.id}
-              listItem={item}
-              onToggleItem={toggleItem}
-            />
-          ))}
+          {openItems
+            .sort((first, second) => (first.name > second.name ? 1 : -1))
+            .map((item) => (
+              <ListItem
+                key={item.id}
+                listId={currentList.id}
+                listItem={item}
+                onToggleItem={toggleItem}
+              />
+            ))}
         </div>
       )}
       {showOldItems && closedItems.length > 0 && (
