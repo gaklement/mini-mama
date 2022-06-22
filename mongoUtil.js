@@ -1,9 +1,9 @@
 const MongoClient = require('mongodb').MongoClient
 
 const user = 'Gisa'
-const password = 'IReallyLikeFood'
-const url = `mongodb+srv://${user}:${password}@thenextcluster.gjiq0.mongodb.net/i-like-food?retryWrites=true&w=majority`
-
+const password = 'IReallyLikeMama'
+const url = `mongodb+srv://${user}:${password}@cluster0.yzaynb9.mongodb.net/test`
+// possible add ?retryWrites=true&w=majority to the url string
 let database
 
 module.exports = {
