@@ -2,9 +2,8 @@ const MongoClient = require('mongodb').MongoClient
 
 const user = 'Gisa'
 const password = 'IReallyLikeMama'
-const url = `mongodb+srv://${user}:${password}@cluster0.yzaynb9.mongodb.net/test`
-// possible add ?retryWrites=true&w=majority to the url string
-// change something to create new commit
+const url = `mongodb+srv://${user}:${password}@cluster0.yzaynb9.mongodb.net/test?retryWrites=true&w=majority`
+
 let database
 
 module.exports = {
@@ -16,6 +15,8 @@ module.exports = {
         useUnifiedTopology: true,
       },
       (error, client) => {
+        console.log('the error i get', error)
+
         database = client.db()
 
         return callback(error)
