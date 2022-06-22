@@ -2,9 +2,9 @@ const MongoClient = require('mongodb').MongoClient
 
 const user = 'Gisa'
 const password = 'IReallyLikeMama'
-const url = `mongodb+srv://${user}:${password}@cluster0.yzaynb9.mongodb.net/test`
+const url = `mongodb+srv://${user}:${password}@cluster0.yzaynb9.mongodb.net/test?retryWrites=true&w=majority`
 // possible add ?retryWrites=true&w=majority to the url string
-// change something to create new commit
+
 let database
 
 module.exports = {
