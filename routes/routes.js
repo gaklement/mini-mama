@@ -13,4 +13,6 @@ router.put('/lists', controllers.lists)
 router.put('/item', controllers.item)
 router.delete('/item', controllers.item)
 
+router.put('/items', controllers.items)
+
 module.exports = router

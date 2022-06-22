@@ -167,9 +167,43 @@ const item = (req, res) => {
   run().catch(console.dir)
 }
 
+const items = (req, res) => {
+  async function run() {
+    try {
+      const mongoDatabase = mongoUtil.getDatabase()
+
+      // toggle all items to undone
+      if (req.method === 'PUT') {
+        const list = await mongoDatabase
+          .collection('lists')
+          .find({ id: req.body.listId })
+          .toArray()
+
+        const updatedItems = list[0].items.map((item) => ({
+          ...item,
+          doneTime: Date.now(),
+          done: false,
+        }))
+
+        await mongoDatabase.collection('lists').updateOne(
+          { id: req.body.listId },
+          {
+            $set: { items: updatedItems },
+          }
+        )
+
+        res.status(200).json({})
+      }
+    } finally {
+    }
+  }
+  run().catch(console.dir)
+}
+
 module.exports.lists = lists
 module.exports.list = list
 module.exports.item = item
+module.exports.items = items
 
 // maybe put all controller types (lists, list, item) into one giant module or maybe not
 // close db connection

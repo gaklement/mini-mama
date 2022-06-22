@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { faArrowLeft, faCheck, faRedo } from '@fortawesome/free-solid-svg-icons'
 
 import AddItem from './AddItem'
+import Button from './Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import IconButton from './IconButton'
 import ListItem from './ListItem'
@@ -50,6 +51,14 @@ function ListDetail({ history, match }) {
     [fetchList, match.params.listId]
   )
 
+  const resetErledigt = useCallback(() => {
+    axios
+      .put('/api/v1/items', {
+        listId: match.params.listId,
+      })
+      .then(() => fetchList(match.params.listId))
+  }, [fetchList, match.params.listId])
+
   const openItems = currentList.items
     ? currentList.items.filter((item) => !item.done)
     : []
@@ -84,7 +93,10 @@ function ListDetail({ history, match }) {
       )}
       {showOldItems && closedItems.length > 0 && (
         <div {...styles('oldSection')}>
-          <div {...styles('title')}>Erledigt</div>
+          <div {...styles('erledigtHeader')}>
+            <div {...styles('title')}>Erledigt</div>
+            <Button onClick={resetErledigt}>Zurück nach Schruns</Button>
+          </div>
           <div {...styles('oldListItemContainer')}>
             {closedItems
               .sort((first, second) => (first.name > second.name ? 1 : -1))
@@ -162,6 +174,10 @@ const defaultStyle = {
   cancelButton: {
     position: 'absolute',
     bottom: 20,
+  },
+  erledigtHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
   listItemContainer,
   oldListItemContainer: {
