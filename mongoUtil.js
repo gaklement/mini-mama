@@ -16,6 +16,8 @@ module.exports = {
         useUnifiedTopology: true,
       },
       (error, client) => {
+        console.log('the error i get', error)
+
         database = client.db()
 
         return callback(error)
