@@ -4,6 +4,7 @@ const user = 'Gisa'
 const password = 'IReallyLikeMama'
 const url = `mongodb+srv://${user}:${password}@cluster0.yzaynb9.mongodb.net/test`
 // possible add ?retryWrites=true&w=majority to the url string
+// change something to create new commit
 let database
 
 module.exports = {
